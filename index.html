@@ -77,17 +77,10 @@
       overflow: hidden;
       cursor: pointer;
       transition: opacity 0.2s, transform 0.2s;
-      position: relative;
     }
+    .card:hover { opacity: 0.85; transform: translateY(-2px); }
 
-    .card:hover { opacity: 0.88; transform: translateY(-1px); }
-
-    /* Image cards */
-    .card-image img {
-      width: 100%;
-      display: block;
-    }
-
+    .card-image img { width: 100%; display: block; }
     .card-image .caption {
       padding: 0.6rem 0.85rem 0.75rem;
       font-family: 'Inconsolata', monospace;
@@ -96,12 +89,10 @@
       color: var(--text-muted);
     }
 
-    /* Quote cards */
     .card-quote {
       padding: 1.5rem 1.25rem 1.4rem;
       border-left: 2px solid var(--gold-dim);
     }
-
     .card-quote blockquote {
       font-size: 1.1rem;
       font-style: italic;
@@ -109,7 +100,6 @@
       line-height: 1.55;
       color: var(--text);
     }
-
     .card-quote cite {
       display: block;
       margin-top: 0.75rem;
@@ -121,11 +111,7 @@
       font-style: normal;
     }
 
-    /* Thought cards */
-    .card-thought {
-      padding: 1.4rem 1.25rem;
-    }
-
+    .card-thought { padding: 1.4rem 1.25rem; }
     .card-thought p {
       font-size: 1rem;
       font-weight: 300;
@@ -133,36 +119,23 @@
       color: var(--text);
     }
 
-    /* Video cards */
-    .card-video {
-      position: relative;
-    }
-
     .card-video .thumb {
       width: 100%;
-      display: block;
       aspect-ratio: 16/9;
       background: #1a1814;
       display: flex;
       align-items: center;
       justify-content: center;
     }
-
-    .card-video .play-icon {
-      width: 40px;
-      height: 40px;
+    .play-icon {
+      width: 40px; height: 40px;
       border-radius: 50%;
-      background: rgba(200,169,110,0.15);
+      background: rgba(200,169,110,0.12);
       border: 1px solid var(--gold-dim);
       display: flex;
       align-items: center;
       justify-content: center;
     }
-
-    .card-video .play-icon svg {
-      margin-left: 3px;
-    }
-
     .card-video .caption {
       padding: 0.6rem 0.85rem 0.75rem;
       font-family: 'Inconsolata', monospace;
@@ -171,19 +144,6 @@
       color: var(--text-muted);
     }
 
-    /* Date chip on cards */
-    .card-date {
-      position: absolute;
-      top: 0.6rem;
-      right: 0.6rem;
-      font-family: 'Inconsolata', monospace;
-      font-size: 0.55rem;
-      letter-spacing: 0.1em;
-      color: var(--text-muted);
-      opacity: 0.6;
-    }
-
-    /* Empty state */
     .empty {
       column-span: all;
       text-align: center;
@@ -194,277 +154,6 @@
       text-transform: uppercase;
       color: var(--text-muted);
     }
-
-    /* ── Lightbox ── */
-    .lightbox {
-      display: none;
-      position: fixed;
-      inset: 0;
-      z-index: 500;
-      background: rgba(10,9,7,0.94);
-      align-items: center;
-      justify-content: center;
-      padding: 2rem;
-      animation: lbFadeIn 0.2s ease;
-    }
-
-    .lightbox.open { display: flex; }
-
-    @keyframes lbFadeIn {
-      from { opacity: 0; }
-      to   { opacity: 1; }
-    }
-
-    .lb-close {
-      position: fixed;
-      top: 1.25rem;
-      right: 1.5rem;
-      background: none;
-      border: none;
-      color: var(--text-muted);
-      font-size: 1.5rem;
-      cursor: pointer;
-      line-height: 1;
-      z-index: 510;
-      transition: color 0.2s;
-    }
-    .lb-close:hover { color: var(--gold); }
-
-    .lb-content {
-      max-width: 720px;
-      width: 100%;
-      max-height: 90vh;
-      overflow-y: auto;
-      animation: lbSlideUp 0.25s ease;
-    }
-
-    @keyframes lbSlideUp {
-      from { opacity: 0; transform: translateY(12px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    /* Lightbox post styles — full size */
-    .lb-post { }
-
-    .lb-meta {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      margin-bottom: 1.25rem;
-    }
-
-    .lb-tag {
-      font-family: 'Inconsolata', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--gold-dim);
-      border: 1px solid var(--gold-dim);
-      padding: 0.15rem 0.5rem;
-      border-radius: 2px;
-    }
-
-    .lb-date {
-      font-family: 'Inconsolata', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.1em;
-      color: var(--text-muted);
-    }
-
-    .lb-post img {
-      width: 100%;
-      height: auto;
-      display: block;
-      border-radius: 2px;
-    }
-
-    .lb-post blockquote {
-      font-size: 2rem;
-      font-style: italic;
-      font-weight: 300;
-      line-height: 1.45;
-      color: var(--text);
-      padding-left: 1.5rem;
-      border-left: 1px solid var(--gold-dim);
-    }
-
-    .lb-post cite {
-      display: block;
-      margin-top: 1rem;
-      padding-left: 1.5rem;
-      font-family: 'Inconsolata', monospace;
-      font-size: 0.7rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      font-style: normal;
-    }
-
-    .lb-post .lb-thought {
-      font-size: 1.35rem;
-      font-weight: 300;
-      line-height: 1.8;
-      color: var(--text);
-    }
-
-    .lb-caption {
-      margin-top: 0.85rem;
-      font-family: 'Inconsolata', monospace;
-      font-size: 0.7rem;
-      letter-spacing: 0.08em;
-      color: var(--text-muted);
-    }
-
-    .lb-video-wrapper {
-      position: relative;
-      padding-bottom: 56.25%;
-      height: 0;
-      overflow: hidden;
-      border-radius: 2px;
-    }
-
-    .lb-video-wrapper iframe {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      border: none;
-    }
-
-    /* Edit/Delete actions — only in lightbox */
-    .lb-actions {
-      display: flex;
-      gap: 0.75rem;
-      margin-top: 2rem;
-      padding-top: 1.5rem;
-      border-top: 1px solid var(--border);
-      align-items: center;
-    }
-
-    .lb-actions.hidden { display: none; }
-
-    .btn-edit {
-      background: transparent;
-      border: 1px solid var(--gold-dim);
-      color: var(--gold);
-      font-family: 'Inconsolata', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      padding: 0.5rem 1.25rem;
-      cursor: pointer;
-      border-radius: 2px;
-      transition: all 0.2s;
-    }
-    .btn-edit:hover { background: var(--gold-dim); color: var(--bg); }
-
-    .btn-delete {
-      background: transparent;
-      border: 1px solid #7a3030;
-      color: #c87070;
-      font-family: 'Inconsolata', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      padding: 0.5rem 1.25rem;
-      cursor: pointer;
-      border-radius: 2px;
-      transition: all 0.2s;
-    }
-    .btn-delete:hover { background: #7a3030; color: var(--bg); }
-
-    .lb-confirm {
-      font-family: 'Inconsolata', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.08em;
-      color: #c87070;
-      display: none;
-      align-items: center;
-      gap: 0.75rem;
-    }
-    .lb-confirm.visible { display: flex; }
-    .lb-confirm button {
-      background: none;
-      border: none;
-      font-family: 'Inconsolata', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      cursor: pointer;
-      padding: 0;
-    }
-    .lb-confirm .yes { color: #c87070; text-decoration: underline; }
-    .lb-confirm .no  { color: var(--text-muted); }
-
-    /* Inline edit form in lightbox */
-    .lb-edit-form {
-      display: none;
-      margin-top: 1.5rem;
-      padding: 1.5rem;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 2px;
-    }
-    .lb-edit-form.visible { display: block; }
-    .lb-ef-group { margin-bottom: 1.25rem; }
-    .lb-ef-label {
-      display: block;
-      font-family: 'Inconsolata', monospace;
-      font-size: 0.62rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin-bottom: 0.4rem;
-    }
-    .lb-ef-input, .lb-ef-select, .lb-ef-textarea {
-      width: 100%;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      color: var(--text);
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1rem;
-      font-weight: 300;
-      padding: 0.65rem 0.85rem;
-      border-radius: 2px;
-      outline: none;
-      -webkit-appearance: none;
-    }
-    .lb-ef-textarea { resize: vertical; min-height: 100px; line-height: 1.7; }
-    .lb-ef-row { display: flex; gap: 0.75rem; margin-top: 1rem; }
-    .lb-ef-btn {
-      background: transparent;
-      border: 1px solid var(--gold-dim);
-      color: var(--gold);
-      font-family: 'Inconsolata', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      padding: 0.5rem 1.25rem;
-      cursor: pointer;
-      border-radius: 2px;
-      transition: all 0.2s;
-    }
-    .lb-ef-btn:hover { background: var(--gold-dim); color: var(--bg); }
-    .lb-ef-cancel {
-      background: transparent;
-      border: 1px solid var(--border);
-      color: var(--text-muted);
-      font-family: 'Inconsolata', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      padding: 0.5rem 1rem;
-      cursor: pointer;
-      border-radius: 2px;
-    }
-    .lb-notice {
-      margin-top: 1rem;
-      font-family: 'Inconsolata', monospace;
-      font-size: 0.68rem;
-      letter-spacing: 0.08em;
-      display: none;
-    }
-    .lb-notice.success { color: var(--gold); }
-    .lb-notice.error   { color: #c87070; }
 
     footer {
       text-align: center;
@@ -477,12 +166,305 @@
       border-top: 1px solid var(--border);
     }
 
+    /* ── Lightbox ── */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 500;
+      background: rgba(10,9,7,0.96);
+      flex-direction: column;
+    }
+    .lightbox.open { display: flex; }
+
+    /* Fixed lightbox header */
+    .lb-header {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      z-index: 10;
+      padding: 1.2rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(to bottom, rgba(10,9,7,0.95) 60%, transparent);
+    }
+
+    .lb-counter {
+      font-family: 'Inconsolata', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+    }
+
+    .lb-nav {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .lb-arrow {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 0.25rem;
+      transition: color 0.2s;
+      font-size: 1.1rem;
+      line-height: 1;
+    }
+    .lb-arrow:hover { color: var(--gold); }
+    .lb-arrow:disabled { opacity: 0.2; cursor: default; }
+
+    .lb-close {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 1.4rem;
+      line-height: 1;
+      transition: color 0.2s;
+      padding: 0.25rem;
+    }
+    .lb-close:hover { color: var(--gold); }
+
+    /* Scrollable feed area */
+    .lb-feed {
+      flex: 1;
+      overflow-y: auto;
+      padding: 5rem 2rem 4rem;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* Each post in the feed */
+    .lb-item {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 2.5rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .lb-item:first-child { border-top: 1px solid var(--border); }
+    .lb-item.active-item {
+      /* subtle highlight for the "current" item */
+    }
+
+    .lb-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+    .lb-tag {
+      font-family: 'Inconsolata', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+      border: 1px solid var(--gold-dim);
+      padding: 0.15rem 0.5rem;
+      border-radius: 2px;
+    }
+    .lb-date {
+      font-family: 'Inconsolata', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+    }
+
+    .lb-item img { width: 100%; height: auto; display: block; border-radius: 2px; }
+
+    .lb-item blockquote {
+      font-size: 1.9rem;
+      font-style: italic;
+      font-weight: 300;
+      line-height: 1.45;
+      color: var(--text);
+      padding-left: 1.5rem;
+      border-left: 1px solid var(--gold-dim);
+    }
+    .lb-item cite {
+      display: block;
+      margin-top: 1rem;
+      padding-left: 1.5rem;
+      font-family: 'Inconsolata', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      font-style: normal;
+    }
+    .lb-item .lb-thought {
+      font-size: 1.3rem;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--text);
+    }
+    .lb-item .lb-caption {
+      margin-top: 0.85rem;
+      font-family: 'Inconsolata', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+    }
+    .lb-video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 2px;
+    }
+    .lb-video-wrapper iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: none;
+    }
+
+    /* Admin actions per item */
+    .lb-actions {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--border);
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .lb-actions.hidden { display: none; }
+
+    .btn-edit {
+      background: transparent;
+      border: 1px solid var(--gold-dim);
+      color: var(--gold);
+      font-family: 'Inconsolata', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.45rem 1rem;
+      cursor: pointer;
+      border-radius: 2px;
+      transition: all 0.2s;
+    }
+    .btn-edit:hover { background: var(--gold-dim); color: var(--bg); }
+
+    .btn-delete {
+      background: transparent;
+      border: 1px solid #7a3030;
+      color: #c87070;
+      font-family: 'Inconsolata', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.45rem 1rem;
+      cursor: pointer;
+      border-radius: 2px;
+      transition: all 0.2s;
+    }
+    .btn-delete:hover { background: #7a3030; color: var(--bg); }
+
+    .lb-confirm {
+      font-family: 'Inconsolata', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      color: #c87070;
+      display: none;
+      align-items: center;
+      gap: 0.75rem;
+      width: 100%;
+      margin-top: 0.25rem;
+    }
+    .lb-confirm.visible { display: flex; }
+    .lb-confirm button {
+      background: none; border: none;
+      font-family: 'Inconsolata', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer; padding: 0;
+    }
+    .lb-confirm .yes { color: #c87070; text-decoration: underline; }
+    .lb-confirm .no  { color: var(--text-muted); }
+
+    /* Inline edit form */
+    .lb-edit-form {
+      display: none;
+      margin-top: 1.25rem;
+      padding: 1.25rem;
+      background: rgba(28,26,20,0.8);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+    }
+    .lb-edit-form.visible { display: block; }
+    .ef-group { margin-bottom: 1rem; }
+    .ef-label {
+      display: block;
+      font-family: 'Inconsolata', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.4rem;
+    }
+    .ef-input, .ef-select, .ef-textarea {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-weight: 300;
+      padding: 0.6rem 0.85rem;
+      border-radius: 2px;
+      outline: none;
+      -webkit-appearance: none;
+    }
+    .ef-textarea { resize: vertical; min-height: 90px; line-height: 1.7; }
+    .ef-row { display: flex; gap: 0.75rem; margin-top: 1rem; }
+    .ef-save {
+      background: transparent;
+      border: 1px solid var(--gold-dim);
+      color: var(--gold);
+      font-family: 'Inconsolata', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.45rem 1.1rem;
+      cursor: pointer;
+      border-radius: 2px;
+      transition: all 0.2s;
+    }
+    .ef-save:hover { background: var(--gold-dim); color: var(--bg); }
+    .ef-cancel {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-family: 'Inconsolata', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.45rem 0.85rem;
+      cursor: pointer;
+      border-radius: 2px;
+    }
+    .ef-notice {
+      margin-top: 0.75rem;
+      font-family: 'Inconsolata', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      display: none;
+    }
+    .ef-notice.success { color: var(--gold); }
+    .ef-notice.error   { color: #c87070; }
+
+    .hidden { display: none !important; }
+
     @media (max-width: 600px) {
       header { padding: 1.1rem 1.25rem; }
       main { padding-top: 5rem; padding-left: 0.6rem; padding-right: 0.6rem; columns: 2 140px; column-gap: 0.5rem; }
       .card-quote blockquote { font-size: 0.95rem; }
-      .lb-post blockquote { font-size: 1.5rem; }
-      .lightbox { padding: 1rem; }
+      .lb-feed { padding: 4.5rem 1.25rem 3rem; }
+      .lb-item blockquote { font-size: 1.4rem; }
+      .lb-item .lb-thought { font-size: 1.1rem; }
     }
   </style>
 </head>
@@ -494,68 +476,29 @@
 </header>
 
 <main id="grid"></main>
-
 <footer>A personal collection &mdash; ongoing</footer>
 
 <!-- Lightbox -->
-<div class="lightbox" id="lightbox" onclick="handleLbClick(event)">
-  <button class="lb-close" onclick="closeLightbox()">✕</button>
-  <div class="lb-content" id="lb-content" onclick="event.stopPropagation()">
-    <div class="lb-post" id="lb-post"></div>
+<div class="lightbox" id="lightbox">
 
-    <!-- Admin actions (only visible when authenticated) -->
-    <div class="lb-actions hidden" id="lb-actions">
-      <button class="btn-edit" onclick="toggleLbEdit()">Edit</button>
-      <button class="btn-delete" onclick="showLbConfirm()">Delete</button>
-      <div class="lb-confirm" id="lb-confirm">
-        Delete this post?
-        <button class="yes" onclick="doDelete()">Yes, delete</button>
-        <button class="no" onclick="hideLbConfirm()">Cancel</button>
-      </div>
-    </div>
-
-    <!-- Edit form -->
-    <div class="lb-edit-form" id="lb-edit-form">
-      <div class="lb-ef-group">
-        <label class="lb-ef-label">Type</label>
-        <select class="lb-ef-select" id="ef-type" onchange="updateEfFields()">
-          <option value="thought">Thought</option>
-          <option value="quote">Quote</option>
-          <option value="image">Image</option>
-          <option value="video">Video</option>
-        </select>
-      </div>
-      <div class="lb-ef-group">
-        <label class="lb-ef-label" id="ef-content-label">Content</label>
-        <textarea class="lb-ef-textarea" id="ef-content-text"></textarea>
-        <input type="text" class="lb-ef-input hidden" id="ef-content-url" placeholder="URL..." />
-      </div>
-      <div class="lb-ef-group" id="ef-attr-group">
-        <label class="lb-ef-label">Attribution</label>
-        <input type="text" class="lb-ef-input" id="ef-attribution" placeholder="Alan Watts..." />
-      </div>
-      <div class="lb-ef-group hidden" id="ef-cap-group">
-        <label class="lb-ef-label">Caption</label>
-        <input type="text" class="lb-ef-input" id="ef-caption" placeholder="Optional..." />
-      </div>
-      <div class="lb-ef-group">
-        <label class="lb-ef-label">Date</label>
-        <input type="date" class="lb-ef-input" id="ef-date" />
-      </div>
-      <div class="lb-ef-row">
-        <button class="lb-ef-btn" onclick="saveEdit()">Save</button>
-        <button class="lb-ef-cancel" onclick="toggleLbEdit()">Cancel</button>
-      </div>
-      <div class="lb-notice" id="lb-notice"></div>
+  <div class="lb-header">
+    <span class="lb-counter" id="lb-counter"></span>
+    <div class="lb-nav">
+      <button class="lb-arrow" id="lb-prev" onclick="navigateLb(-1)" title="Previous">&#8592;</button>
+      <button class="lb-arrow" id="lb-next" onclick="navigateLb(1)"  title="Next">&#8594;</button>
+      <button class="lb-close" onclick="closeLightbox()" title="Back to grid">✕</button>
     </div>
   </div>
+
+  <div class="lb-feed" id="lb-feed"></div>
 </div>
 
 <script>
   let allPosts = [];
-  let currentPost = null;
+  let currentIndex = 0;
   const isAdmin = () => sessionStorage.getItem('nc_auth') === '1';
 
+  /* ── Load & render grid ── */
   async function loadPosts() {
     const grid = document.getElementById('grid');
     try {
@@ -573,31 +516,27 @@
   }
 
   function fmtDate(d) {
-    return d ? new Date(d).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) : '';
+    return d ? new Date(d).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : '';
   }
 
   function renderGrid() {
-    const grid = document.getElementById('grid');
-    grid.innerHTML = allPosts.map(post => {
-      if (post.type === 'image') {
-        return `<div class="card card-image" onclick="openLightbox('${post.id}')">
+    document.getElementById('grid').innerHTML = allPosts.map((post, i) => {
+      if (post.type === 'image') return `
+        <div class="card card-image" onclick="openLightbox(${i})">
           <img src="${post.content}" alt="${post.caption||''}" loading="lazy" />
           ${post.caption ? `<p class="caption">${post.caption}</p>` : ''}
         </div>`;
-      }
-      if (post.type === 'quote') {
-        return `<div class="card card-quote" onclick="openLightbox('${post.id}')">
+      if (post.type === 'quote') return `
+        <div class="card card-quote" onclick="openLightbox(${i})">
           <blockquote>${post.content}</blockquote>
           ${post.attribution ? `<cite>— ${post.attribution}</cite>` : ''}
         </div>`;
-      }
-      if (post.type === 'thought') {
-        return `<div class="card card-thought" onclick="openLightbox('${post.id}')">
+      if (post.type === 'thought') return `
+        <div class="card card-thought" onclick="openLightbox(${i})">
           <p>${post.content}</p>
         </div>`;
-      }
-      if (post.type === 'video') {
-        return `<div class="card card-video" onclick="openLightbox('${post.id}')">
+      if (post.type === 'video') return `
+        <div class="card card-video" onclick="openLightbox(${i})">
           <div class="thumb">
             <div class="play-icon">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--gold)"><polygon points="5,3 19,12 5,21"/></svg>
@@ -605,185 +544,240 @@
           </div>
           ${post.caption ? `<p class="caption">${post.caption}</p>` : ''}
         </div>`;
-      }
       return '';
     }).join('');
   }
 
-  function openLightbox(id) {
-    currentPost = allPosts.find(p => p.id === id);
-    if (!currentPost) return;
-    renderLightboxPost(currentPost);
+  /* ── Lightbox ── */
+  function openLightbox(index) {
+    currentIndex = index;
+    renderFeed();
     document.getElementById('lightbox').classList.add('open');
     document.body.style.overflow = 'hidden';
-    // Show admin actions if authenticated
-    document.getElementById('lb-actions').classList.toggle('hidden', !isAdmin());
-    // Reset edit form
-    document.getElementById('lb-edit-form').classList.remove('visible');
-    document.getElementById('lb-confirm').classList.remove('visible');
-  }
-
-  function renderLightboxPost(post) {
-    const date = fmtDate(post.date);
-    const meta = `<div class="lb-meta">
-      <span class="lb-tag">${post.type}</span>
-      ${date ? `<span class="lb-date">${date}</span>` : ''}
-    </div>`;
-
-    let content = '';
-    if (post.type === 'quote') {
-      content = `<blockquote>${post.content}</blockquote>
-        ${post.attribution ? `<cite>— ${post.attribution}</cite>` : ''}`;
-    } else if (post.type === 'thought') {
-      content = `<p class="lb-thought">${post.content}</p>`;
-    } else if (post.type === 'image') {
-      content = `<img src="${post.content}" alt="${post.caption||''}" />
-        ${post.caption ? `<p class="lb-caption">${post.caption}</p>` : ''}`;
-    } else if (post.type === 'video') {
-      content = `<div class="lb-video-wrapper">
-          <iframe src="${post.content}" allowfullscreen></iframe>
-        </div>
-        ${post.caption ? `<p class="lb-caption">${post.caption}</p>` : ''}`;
-    }
-
-    document.getElementById('lb-post').innerHTML = meta + content;
+    scrollToItem(index, 'instant');
+    updateNav();
   }
 
   function closeLightbox() {
     document.getElementById('lightbox').classList.remove('open');
     document.body.style.overflow = '';
-    currentPost = null;
   }
 
-  function handleLbClick(e) {
-    if (e.target === document.getElementById('lightbox')) closeLightbox();
+  function navigateLb(dir) {
+    const newIndex = currentIndex + dir;
+    if (newIndex < 0 || newIndex >= allPosts.length) return;
+    currentIndex = newIndex;
+    scrollToItem(currentIndex, 'smooth');
+    updateNav();
   }
 
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') closeLightbox();
-  });
+  function updateNav() {
+    document.getElementById('lb-prev').disabled = currentIndex === 0;
+    document.getElementById('lb-next').disabled = currentIndex === allPosts.length - 1;
+    document.getElementById('lb-counter').textContent =
+      `${currentIndex + 1} / ${allPosts.length}`;
+  }
 
-  // Edit form in lightbox
-  function toggleLbEdit() {
-    const form = document.getElementById('lb-edit-form');
+  function scrollToItem(index, behavior) {
+    const item = document.getElementById(`lb-item-${index}`);
+    if (item) item.scrollIntoView({ behavior, block: 'start' });
+  }
+
+  function renderFeed() {
+    const admin = isAdmin();
+    document.getElementById('lb-feed').innerHTML = allPosts.map((post, i) => {
+      const date = fmtDate(post.date);
+      const meta = `<div class="lb-meta">
+        <span class="lb-tag">${post.type}</span>
+        ${date ? `<span class="lb-date">${date}</span>` : ''}
+      </div>`;
+
+      let content = '';
+      if (post.type === 'quote') {
+        content = `<blockquote>${post.content}</blockquote>
+          ${post.attribution ? `<cite>— ${post.attribution}</cite>` : ''}`;
+      } else if (post.type === 'thought') {
+        content = `<p class="lb-thought">${post.content}</p>`;
+      } else if (post.type === 'image') {
+        content = `<img src="${post.content}" alt="${post.caption||''}" loading="lazy" />
+          ${post.caption ? `<p class="lb-caption">${post.caption}</p>` : ''}`;
+      } else if (post.type === 'video') {
+        content = `<div class="lb-video-wrapper">
+            <iframe src="${post.content}" allowfullscreen></iframe>
+          </div>
+          ${post.caption ? `<p class="lb-caption">${post.caption}</p>` : ''}`;
+      }
+
+      const actions = admin ? `
+        <div class="lb-actions">
+          <button class="btn-edit" onclick="toggleEdit(${i})">Edit</button>
+          <button class="btn-delete" onclick="showConfirm(${i})">Delete</button>
+          <div class="lb-confirm" id="confirm-${i}">
+            Delete this post?
+            <button class="yes" onclick="doDelete(${i})">Yes, delete</button>
+            <button class="no" onclick="hideConfirm(${i})">Cancel</button>
+          </div>
+        </div>
+        <div class="lb-edit-form" id="edit-form-${i}">
+          ${buildEditForm(post, i)}
+        </div>` : '';
+
+      return `<div class="lb-item" id="lb-item-${i}">${meta}${content}${actions}</div>`;
+    }).join('');
+
+    // Update currentIndex when user scrolls
+    const feed = document.getElementById('lb-feed');
+    feed.addEventListener('scroll', onFeedScroll, { passive: true });
+  }
+
+  let scrollTimer;
+  function onFeedScroll() {
+    clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(() => {
+      const feed = document.getElementById('lb-feed');
+      const items = feed.querySelectorAll('.lb-item');
+      let closest = 0, minDist = Infinity;
+      items.forEach((el, i) => {
+        const dist = Math.abs(el.getBoundingClientRect().top - 100);
+        if (dist < minDist) { minDist = dist; closest = i; }
+      });
+      if (closest !== currentIndex) {
+        currentIndex = closest;
+        updateNav();
+      }
+    }, 80);
+  }
+
+  /* ── Edit / Delete ── */
+  function buildEditForm(post, i) {
+    const isText = post.type === 'thought' || post.type === 'quote';
+    return `
+      <div class="ef-group">
+        <label class="ef-label">Type</label>
+        <select class="ef-select" id="ef-type-${i}" onchange="updateEfFields(${i})">
+          <option value="thought" ${post.type==='thought'?'selected':''}>Thought</option>
+          <option value="quote"   ${post.type==='quote'  ?'selected':''}>Quote</option>
+          <option value="image"   ${post.type==='image'  ?'selected':''}>Image</option>
+          <option value="video"   ${post.type==='video'  ?'selected':''}>Video</option>
+        </select>
+      </div>
+      <div class="ef-group">
+        <label class="ef-label" id="ef-cl-${i}">Content</label>
+        <textarea class="ef-textarea" id="ef-text-${i}" ${!isText?'style="display:none"':''}>${isText?post.content:''}</textarea>
+        <input type="text" class="ef-input" id="ef-url-${i}" value="${!isText?post.content:''}" placeholder="URL..." ${isText?'style="display:none"':''} />
+      </div>
+      <div class="ef-group" id="ef-ag-${i}" ${post.type!=='quote'?'style="display:none"':''}>
+        <label class="ef-label">Attribution</label>
+        <input type="text" class="ef-input" id="ef-attr-${i}" value="${post.attribution||''}" placeholder="Alan Watts..." />
+      </div>
+      <div class="ef-group" id="ef-cg-${i}" ${(post.type!=='image'&&post.type!=='video')?'style="display:none"':''}>
+        <label class="ef-label">Caption</label>
+        <input type="text" class="ef-input" id="ef-cap-${i}" value="${post.caption||''}" placeholder="Optional..." />
+      </div>
+      <div class="ef-group">
+        <label class="ef-label">Date</label>
+        <input type="date" class="ef-input" id="ef-date-${i}" value="${post.date||''}" />
+      </div>
+      <div class="ef-row">
+        <button class="ef-save" onclick="saveEdit(${i})">Save</button>
+        <button class="ef-cancel" onclick="toggleEdit(${i})">Cancel</button>
+      </div>
+      <div class="ef-notice" id="ef-notice-${i}"></div>`;
+  }
+
+  function updateEfFields(i) {
+    const type = document.getElementById(`ef-type-${i}`).value;
+    const textarea = document.getElementById(`ef-text-${i}`);
+    const urlInput = document.getElementById(`ef-url-${i}`);
+    const ag = document.getElementById(`ef-ag-${i}`);
+    const cg = document.getElementById(`ef-cg-${i}`);
+    textarea.style.display = (type==='thought'||type==='quote') ? '' : 'none';
+    urlInput.style.display  = (type==='image'||type==='video')  ? '' : 'none';
+    ag.style.display = type==='quote' ? '' : 'none';
+    cg.style.display = (type==='image'||type==='video') ? '' : 'none';
+  }
+
+  function toggleEdit(i) {
+    const form = document.getElementById(`edit-form-${i}`);
     form.classList.toggle('visible');
-    if (form.classList.contains('visible') && currentPost) {
-      populateEditForm(currentPost);
-    }
-    hideLbConfirm();
+    hideConfirm(i);
   }
 
-  function populateEditForm(post) {
-    document.getElementById('ef-type').value = post.type;
-    document.getElementById('ef-content-text').value = post.content || '';
-    document.getElementById('ef-content-url').value = post.content || '';
-    document.getElementById('ef-attribution').value = post.attribution || '';
-    document.getElementById('ef-caption').value = post.caption || '';
-    document.getElementById('ef-date').value = post.date || '';
-    updateEfFields();
+  function showConfirm(i) {
+    document.getElementById(`confirm-${i}`).classList.add('visible');
+    const form = document.getElementById(`edit-form-${i}`);
+    if (form) form.classList.remove('visible');
   }
 
-  function updateEfFields() {
-    const type = document.getElementById('ef-type').value;
-    const textarea = document.getElementById('ef-content-text');
-    const urlInput = document.getElementById('ef-content-url');
-    const attrGroup = document.getElementById('ef-attr-group');
-    const capGroup = document.getElementById('ef-cap-group');
-    const label = document.getElementById('ef-content-label');
-
-    textarea.classList.remove('hidden');
-    urlInput.classList.add('hidden');
-    attrGroup.classList.add('hidden');
-    capGroup.classList.add('hidden');
-
-    if (type === 'thought') {
-      label.textContent = 'Thought';
-    } else if (type === 'quote') {
-      label.textContent = 'Quote';
-      attrGroup.classList.remove('hidden');
-    } else if (type === 'image') {
-      label.textContent = 'Image URL';
-      textarea.classList.add('hidden');
-      urlInput.classList.remove('hidden');
-      capGroup.classList.remove('hidden');
-    } else if (type === 'video') {
-      label.textContent = 'YouTube embed URL';
-      textarea.classList.add('hidden');
-      urlInput.classList.remove('hidden');
-      capGroup.classList.remove('hidden');
-    }
+  function hideConfirm(i) {
+    const el = document.getElementById(`confirm-${i}`);
+    if (el) el.classList.remove('visible');
   }
 
-  async function saveEdit() {
-    if (!currentPost) return;
-    const type = document.getElementById('ef-type').value;
-    const isText = type === 'thought' || type === 'quote';
+  async function saveEdit(i) {
+    const post = allPosts[i];
+    const type = document.getElementById(`ef-type-${i}`).value;
+    const isText = type==='thought'||type==='quote';
     const content = isText
-      ? document.getElementById('ef-content-text').value.trim()
-      : document.getElementById('ef-content-url').value.trim();
+      ? document.getElementById(`ef-text-${i}`).value.trim()
+      : document.getElementById(`ef-url-${i}`).value.trim();
 
-    const payload = {
-      action: 'edit',
-      id: currentPost.id,
-      type, content,
-      date: document.getElementById('ef-date').value,
-      attribution: document.getElementById('ef-attribution').value.trim(),
-      caption: document.getElementById('ef-caption').value.trim(),
-      password: sessionStorage.getItem('nc_pw'),
-    };
-
-    const res = await fetch('/api/post', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    });
-
-    const notice = document.getElementById('lb-notice');
-    if (res.ok) {
-      notice.textContent = '✓ Saved. Refreshing...';
-      notice.className = 'lb-notice success';
-      notice.style.display = 'block';
-      setTimeout(() => {
-        closeLightbox();
-        loadPosts();
-      }, 1500);
-    } else if (res.status === 401) {
-      notice.textContent = 'Session expired. Please re-authenticate at /post.html';
-      notice.className = 'lb-notice error';
-      notice.style.display = 'block';
-    } else {
-      notice.textContent = 'Could not save. Please try again.';
-      notice.className = 'lb-notice error';
-      notice.style.display = 'block';
-    }
-  }
-
-  function showLbConfirm() {
-    document.getElementById('lb-confirm').classList.add('visible');
-    document.getElementById('lb-edit-form').classList.remove('visible');
-  }
-
-  function hideLbConfirm() {
-    document.getElementById('lb-confirm').classList.remove('visible');
-  }
-
-  async function doDelete() {
-    if (!currentPost) return;
     const res = await fetch('/api/post', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        action: 'delete',
-        id: currentPost.id,
+        action: 'edit', id: post.id, type, content,
+        date: document.getElementById(`ef-date-${i}`).value,
+        attribution: document.getElementById(`ef-attr-${i}`)?.value?.trim()||'',
+        caption: document.getElementById(`ef-cap-${i}`)?.value?.trim()||'',
         password: sessionStorage.getItem('nc_pw'),
       }),
     });
+
+    const notice = document.getElementById(`ef-notice-${i}`);
     if (res.ok) {
-      allPosts = allPosts.filter(p => p.id !== currentPost.id);
+      notice.textContent = '✓ Saved — reloading...';
+      notice.className = 'ef-notice success';
+      notice.style.display = 'block';
+      setTimeout(() => { closeLightbox(); loadPosts(); }, 1500);
+    } else {
+      notice.textContent = res.status===401 ? 'Session expired. Re-enter passphrase at /post.html' : 'Could not save. Try again.';
+      notice.className = 'ef-notice error';
+      notice.style.display = 'block';
+    }
+  }
+
+  async function doDelete(i) {
+    const post = allPosts[i];
+    const res = await fetch('/api/post', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'delete', id: post.id, password: sessionStorage.getItem('nc_pw') }),
+    });
+    if (res.ok) {
+      allPosts.splice(i, 1);
       closeLightbox();
       renderGrid();
     }
   }
+
+  /* ── Keyboard navigation ── */
+  document.addEventListener('keydown', e => {
+    if (!document.getElementById('lightbox').classList.contains('open')) return;
+    if (e.key === 'Escape')     closeLightbox();
+    if (e.key === 'ArrowRight') navigateLb(1);
+    if (e.key === 'ArrowLeft')  navigateLb(-1);
+  });
+
+  /* ── Touch/swipe navigation ── */
+  let touchStartX = 0;
+  document.getElementById('lightbox').addEventListener('touchstart', e => {
+    touchStartX = e.touches[0].clientX;
+  }, { passive: true });
+  document.getElementById('lightbox').addEventListener('touchend', e => {
+    const diff = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) navigateLb(diff > 0 ? 1 : -1);
+  }, { passive: true });
 
   loadPosts();
 </script>
