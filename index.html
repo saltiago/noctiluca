@@ -31,7 +31,6 @@
 
     a { color: inherit; text-decoration: none; }
 
-    /* Header */
     header {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -52,8 +51,6 @@
       color: var(--gold);
     }
 
-    .site-title span { color: var(--text-muted); font-weight: 300; }
-
     nav a {
       font-family: 'Inconsolata', monospace;
       font-size: 0.7rem;
@@ -65,11 +62,20 @@
 
     nav a:hover { color: var(--gold); }
 
-    /* Feed */
     main {
       max-width: 680px;
       margin: 0 auto;
       padding: 7rem 2rem 6rem;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 6rem 2rem;
+      font-family: 'Inconsolata', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
     }
 
     .post {
@@ -84,12 +90,6 @@
       from { opacity: 0; transform: translateY(8px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-
-    .post:nth-child(1) { animation-delay: 0.05s; }
-    .post:nth-child(2) { animation-delay: 0.10s; }
-    .post:nth-child(3) { animation-delay: 0.15s; }
-    .post:nth-child(4) { animation-delay: 0.20s; }
-    .post:nth-child(5) { animation-delay: 0.25s; }
 
     .post-meta {
       display: flex;
@@ -116,7 +116,6 @@
       color: var(--text-muted);
     }
 
-    /* Quote */
     blockquote {
       font-size: 1.55rem;
       font-weight: 300;
@@ -138,14 +137,12 @@
       font-style: normal;
     }
 
-    /* Thought */
     .thought {
       font-size: 1.15rem;
       font-weight: 300;
       line-height: 1.8;
     }
 
-    /* Image */
     .post img {
       width: 100%;
       height: auto;
@@ -153,7 +150,6 @@
       border-radius: 2px;
     }
 
-    /* Video */
     .video-wrapper {
       position: relative;
       padding-bottom: 56.25%;
@@ -198,7 +194,7 @@
 <body>
 
   <header>
-    <div class="site-title">Noctiluca <span>/ Vega</span></div>
+    <div class="site-title">Noctiluca</div>
     <nav><a href="/post.html">+ Add</a></nav>
   </header>
 
@@ -208,40 +204,49 @@
 
   <script>
     async function loadPosts() {
-      const res = await fetch('/posts.json');
-      const posts = await res.json();
-      posts.sort((a, b) => new Date(b.date) - new Date(a.date));
-
       const feed = document.getElementById('feed');
-      feed.innerHTML = posts.map(post => {
-        const date = post.date
-          ? new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
-          : '';
+      try {
+        const res = await fetch('/posts.json');
+        const posts = await res.json();
 
-        const meta = `
-          <div class="post-meta">
+        if (!posts.length) {
+          feed.innerHTML = '<div class="empty">Nothing here yet.</div>';
+          return;
+        }
+
+        posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+        feed.innerHTML = posts.map((post, i) => {
+          const date = post.date
+            ? new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+            : '';
+
+          const meta = `<div class="post-meta">
             <span class="tag">${post.type}</span>
             ${date ? `<span class="date">${date}</span>` : ''}
           </div>`;
 
-        let content = '';
-        if (post.type === 'quote') {
-          content = `<blockquote>${post.content}</blockquote>
-            ${post.attribution ? `<cite>— ${post.attribution}</cite>` : ''}`;
-        } else if (post.type === 'thought') {
-          content = `<p class="thought">${post.content}</p>`;
-        } else if (post.type === 'image') {
-          content = `<img src="${post.content}" alt="${post.caption || ''}" loading="lazy" />
-            ${post.caption ? `<p class="caption">${post.caption}</p>` : ''}`;
-        } else if (post.type === 'video') {
-          content = `<div class="video-wrapper">
-              <iframe src="${post.content}" allowfullscreen></iframe>
-            </div>
-            ${post.caption ? `<p class="caption">${post.caption}</p>` : ''}`;
-        }
+          let content = '';
+          if (post.type === 'quote') {
+            content = `<blockquote>${post.content}</blockquote>
+              ${post.attribution ? `<cite>— ${post.attribution}</cite>` : ''}`;
+          } else if (post.type === 'thought') {
+            content = `<p class="thought">${post.content}</p>`;
+          } else if (post.type === 'image') {
+            content = `<img src="${post.content}" alt="${post.caption || ''}" loading="lazy" />
+              ${post.caption ? `<p class="caption">${post.caption}</p>` : ''}`;
+          } else if (post.type === 'video') {
+            content = `<div class="video-wrapper">
+                <iframe src="${post.content}" allowfullscreen></iframe>
+              </div>
+              ${post.caption ? `<p class="caption">${post.caption}</p>` : ''}`;
+          }
 
-        return `<article class="post">${meta}${content}</article>`;
-      }).join('');
+          return `<article class="post" style="animation-delay:${i * 0.05}s">${meta}${content}</article>`;
+        }).join('');
+      } catch(e) {
+        feed.innerHTML = '<div class="empty">Could not load posts.</div>';
+      }
     }
 
     loadPosts();

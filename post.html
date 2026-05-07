@@ -53,8 +53,6 @@
       color: var(--gold);
     }
 
-    .site-title span { color: var(--text-muted); font-weight: 300; }
-
     nav a {
       font-family: 'Inconsolata', monospace;
       font-size: 0.7rem;
@@ -92,7 +90,7 @@
       margin-bottom: 0.5rem;
     }
 
-    input, select, textarea {
+    input[type=text], input[type=password], input[type=date], select, textarea {
       width: 100%;
       background: var(--bg-card);
       border: 1px solid var(--border-light);
@@ -119,7 +117,57 @@
       line-height: 1.9;
     }
 
-    button {
+    /* Photo upload button */
+    .photo-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: var(--bg-card);
+      border: 1px dashed var(--border-light);
+      color: var(--text-muted);
+      font-family: 'Inconsolata', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 1rem;
+      border-radius: 2px;
+      cursor: pointer;
+      width: 100%;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .photo-btn:hover { border-color: var(--gold-dim); color: var(--gold); }
+
+    .photo-preview {
+      margin-top: 0.75rem;
+      display: none;
+    }
+
+    .photo-preview img {
+      width: 100%;
+      max-height: 300px;
+      object-fit: cover;
+      border-radius: 2px;
+      display: block;
+    }
+
+    .photo-preview .remove-photo {
+      margin-top: 0.5rem;
+      font-family: 'Inconsolata', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+
+    .photo-preview .remove-photo:hover { color: var(--gold); }
+
+    /* Buttons */
+    .btn {
       background: transparent;
       border: 1px solid var(--gold-dim);
       color: var(--gold);
@@ -133,11 +181,12 @@
       transition: all 0.2s;
     }
 
-    button:hover { background: var(--gold-dim); color: var(--bg); }
-    button:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn:hover { background: var(--gold-dim); color: var(--bg); }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .hidden { display: none !important; }
 
     .success {
-      display: none;
       padding: 1rem;
       border: 1px solid var(--gold-dim);
       color: var(--gold);
@@ -146,16 +195,19 @@
       letter-spacing: 0.1em;
       border-radius: 2px;
       margin-bottom: 2rem;
+      display: none;
     }
 
-    .hidden { display: none; }
-
-    #auth-screen, #form-screen { }
-
-    .divider {
-      margin-top: 3rem;
-      border-top: 1px solid var(--border);
-      padding-top: 2rem;
+    .error-msg {
+      padding: 1rem;
+      border: 1px solid #c87070;
+      color: #c87070;
+      font-family: 'Inconsolata', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      border-radius: 2px;
+      margin-bottom: 2rem;
+      display: none;
     }
 
     @media (max-width: 600px) {
@@ -167,7 +219,7 @@
 <body>
 
   <header>
-    <div class="site-title">Noctiluca <span>/ Add</span></div>
+    <div class="site-title">Noctiluca</div>
     <nav><a href="/">← Collection</a></nav>
   </header>
 
@@ -177,20 +229,20 @@
     <div id="auth-screen">
       <p class="form-title">Enter passphrase</p>
       <div class="group">
-        <input type="password" id="pw-input" placeholder="passphrase" />
-        <p class="hint" id="pw-error" style="color:#c87070;display:none;">Incorrect passphrase.</p>
+        <input type="password" id="pw-input" placeholder="passphrase" autocomplete="current-password" />
+        <p class="hint hidden" id="pw-error" style="color:#c87070;">Incorrect passphrase.</p>
       </div>
-      <button onclick="checkAuth()">Enter</button>
+      <button class="btn" onclick="checkAuth()">Enter</button>
     </div>
 
     <!-- Post form -->
     <div id="form-screen" class="hidden">
       <p class="form-title">New Entry</p>
 
-      <div class="success" id="success-msg">
-        ✓ Received — check your email, then add the entry to posts.json in GitHub.
-      </div>
+      <div class="success" id="success-msg">✓ Published — your post is live.</div>
+      <div class="error-msg" id="error-msg"></div>
 
+      <!-- Type -->
       <div class="group">
         <label>Type</label>
         <select id="type" onchange="updateFields()">
@@ -201,67 +253,76 @@
         </select>
       </div>
 
+      <!-- Content -->
       <div class="group">
         <label id="content-label">Thought</label>
-        <textarea id="content" placeholder="A thought, fragment, observation..."></textarea>
-        <input id="content-url" class="hidden" type="text" placeholder="https://..." />
-        <p class="hint hidden" id="video-hint">Use the embed URL: youtube.com/embed/VIDEO_ID</p>
+
+        <!-- Textarea for thought/quote -->
+        <textarea id="content-text" placeholder="A thought, fragment, observation..."></textarea>
+
+        <!-- Photo upload for image -->
+        <div id="photo-upload" class="hidden">
+          <input type="file" id="photo-file" accept="image/*" class="hidden" onchange="handlePhoto(event)" />
+          <button type="button" class="photo-btn" onclick="document.getElementById('photo-file').click()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
+              <polyline points="21 15 16 10 5 21"/>
+            </svg>
+            Choose from Photos
+          </button>
+          <div class="photo-preview" id="photo-preview">
+            <img id="photo-preview-img" src="" alt="preview" />
+            <button class="remove-photo" onclick="removePhoto()">✕ Remove</button>
+          </div>
+          <p class="hint" style="margin-top:0.5rem;">Tap to choose a photo from your library</p>
+        </div>
+
+        <!-- URL input for video -->
+        <input type="text" id="content-url" class="hidden" placeholder="https://www.youtube.com/embed/..." />
+        <p class="hint hidden" id="video-hint">Use the embed URL format: youtube.com/embed/VIDEO_ID</p>
       </div>
 
+      <!-- Attribution (quotes only) -->
       <div class="group hidden" id="attribution-group">
         <label>Attribution</label>
-        <input type="text" id="attribution" placeholder="Alan Watts..." />
+        <input type="text" id="attribution" placeholder="Alan Watts, Gary Snyder..." />
       </div>
 
+      <!-- Caption (images and videos) -->
       <div class="group hidden" id="caption-group">
         <label>Caption (optional)</label>
         <input type="text" id="caption" placeholder="A brief note..." />
       </div>
 
+      <!-- Date -->
       <div class="group">
         <label>Date</label>
         <input type="date" id="date" />
       </div>
 
-      <button id="submit-btn" onclick="submitPost()">Submit entry</button>
-
-      <div class="divider">
-        <p class="hint">
-          <strong style="color:var(--text-muted);letter-spacing:0.1em;">HOW POSTING WORKS</strong><br/>
-          1. Submit this form → entry arrives in your email via Formspree<br/>
-          2. Copy the JSON into posts.json in your GitHub repo<br/>
-          3. Your site updates automatically within 60 seconds
-        </p>
-      </div>
+      <button class="btn" id="submit-btn" onclick="submitPost()">Publish</button>
     </div>
 
   </main>
 
   <script>
-    const PASSWORD = 'noctiluca2026';
-    const FORMSPREE_ID = 'xgorpajk';
-
     // Set today's date
     document.getElementById('date').value = new Date().toISOString().split('T')[0];
 
-    // Check if already authenticated
-    if (sessionStorage.getItem('nc_auth') === '1') {
-      showForm();
-    }
+    // Restore auth
+    if (sessionStorage.getItem('nc_auth') === '1') showForm();
 
-    // Handle Enter key on password field
     document.getElementById('pw-input').addEventListener('keydown', e => {
       if (e.key === 'Enter') checkAuth();
     });
 
     function checkAuth() {
+      // Password is checked server-side — just pass it through
       const val = document.getElementById('pw-input').value;
-      if (val === PASSWORD) {
-        sessionStorage.setItem('nc_auth', '1');
-        showForm();
-      } else {
-        document.getElementById('pw-error').style.display = 'block';
-      }
+      if (!val) return;
+      sessionStorage.setItem('nc_pw', val);
+      sessionStorage.setItem('nc_auth', '1');
+      showForm();
     }
 
     function showForm() {
@@ -271,85 +332,149 @@
 
     function updateFields() {
       const type = document.getElementById('type').value;
-      const contentLabel = document.getElementById('content-label');
-      const textarea = document.getElementById('content');
+      const label = document.getElementById('content-label');
+      const textarea = document.getElementById('content-text');
+      const photoUpload = document.getElementById('photo-upload');
       const urlInput = document.getElementById('content-url');
       const videoHint = document.getElementById('video-hint');
       const attrGroup = document.getElementById('attribution-group');
       const capGroup = document.getElementById('caption-group');
 
-      // Reset
+      // Hide all
       textarea.classList.add('hidden');
+      photoUpload.classList.add('hidden');
       urlInput.classList.add('hidden');
       videoHint.classList.add('hidden');
       attrGroup.classList.add('hidden');
       capGroup.classList.add('hidden');
 
       if (type === 'thought') {
-        contentLabel.textContent = 'Thought';
+        label.textContent = 'Thought';
         textarea.placeholder = 'A thought, fragment, observation...';
         textarea.classList.remove('hidden');
       } else if (type === 'quote') {
-        contentLabel.textContent = 'Quote text';
+        label.textContent = 'Quote';
         textarea.placeholder = 'The quote text...';
         textarea.classList.remove('hidden');
         attrGroup.classList.remove('hidden');
       } else if (type === 'image') {
-        contentLabel.textContent = 'Image URL';
-        urlInput.placeholder = 'https://... (direct image URL)';
-        urlInput.classList.remove('hidden');
+        label.textContent = 'Photo';
+        photoUpload.classList.remove('hidden');
         capGroup.classList.remove('hidden');
       } else if (type === 'video') {
-        contentLabel.textContent = 'YouTube embed URL';
-        urlInput.placeholder = 'https://www.youtube.com/embed/...';
+        label.textContent = 'YouTube embed URL';
         urlInput.classList.remove('hidden');
         videoHint.classList.remove('hidden');
         capGroup.classList.remove('hidden');
       }
     }
 
+    let photoBase64 = null;
+
+    function handlePhoto(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = e => {
+        photoBase64 = e.target.result; // full data URL
+        document.getElementById('photo-preview-img').src = photoBase64;
+        document.getElementById('photo-preview').style.display = 'block';
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function removePhoto() {
+      photoBase64 = null;
+      document.getElementById('photo-file').value = '';
+      document.getElementById('photo-preview').style.display = 'none';
+      document.getElementById('photo-preview-img').src = '';
+    }
+
+    function showSuccess() {
+      document.getElementById('success-msg').style.display = 'block';
+      document.getElementById('error-msg').style.display = 'none';
+      // Reset form
+      document.getElementById('content-text').value = '';
+      document.getElementById('content-url').value = '';
+      document.getElementById('attribution').value = '';
+      document.getElementById('caption').value = '';
+      document.getElementById('date').value = new Date().toISOString().split('T')[0];
+      document.getElementById('type').value = 'thought';
+      updateFields();
+      removePhoto();
+    }
+
+    function showError(msg) {
+      const el = document.getElementById('error-msg');
+      el.textContent = msg;
+      el.style.display = 'block';
+      document.getElementById('success-msg').style.display = 'none';
+    }
+
     async function submitPost() {
       const type = document.getElementById('type').value;
-      const isText = type === 'thought' || type === 'quote';
-      const content = isText
-        ? document.getElementById('content').value
-        : document.getElementById('content-url').value;
-
-      if (!content.trim()) { alert('Please enter content.'); return; }
-
       const btn = document.getElementById('submit-btn');
+      const password = sessionStorage.getItem('nc_pw');
+
+      let content = '';
+      let imageData = null;
+
+      if (type === 'thought' || type === 'quote') {
+        content = document.getElementById('content-text').value.trim();
+        if (!content) { showError('Please enter content.'); return; }
+      } else if (type === 'image') {
+        if (!photoBase64) { showError('Please choose a photo.'); return; }
+        imageData = photoBase64;
+        content = ''; // will be set by server after Cloudinary upload
+      } else if (type === 'video') {
+        content = document.getElementById('content-url').value.trim();
+        if (!content) { showError('Please enter a video URL.'); return; }
+      }
+
       btn.disabled = true;
-      btn.textContent = 'Sending...';
+      btn.textContent = type === 'image' ? 'Uploading...' : 'Publishing...';
 
       const payload = {
+        password,
         type,
         content,
         date: document.getElementById('date').value,
-        attribution: document.getElementById('attribution').value || '',
-        caption: document.getElementById('caption').value || '',
+        attribution: document.getElementById('attribution').value.trim(),
+        caption: document.getElementById('caption').value.trim(),
       };
 
+      if (imageData) {
+        payload.imageData = imageData;
+        payload.imageType = 'image';
+      }
+
       try {
-        const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+        const res = await fetch('/api/post', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload),
         });
 
-        if (res.ok) {
-          document.getElementById('success-msg').style.display = 'block';
-          document.getElementById('content').value = '';
-          document.getElementById('content-url').value = '';
-          document.getElementById('attribution').value = '';
-          document.getElementById('caption').value = '';
-          document.getElementById('date').value = new Date().toISOString().split('T')[0];
+        const data = await res.json();
+
+        if (res.ok && data.success) {
+          showSuccess();
+        } else if (res.status === 401) {
+          sessionStorage.removeItem('nc_auth');
+          sessionStorage.removeItem('nc_pw');
+          document.getElementById('auth-screen').classList.remove('hidden');
+          document.getElementById('form-screen').classList.add('hidden');
+          document.getElementById('pw-error').classList.remove('hidden');
+        } else {
+          showError('Something went wrong. Please try again.');
         }
       } catch(e) {
-        alert('Something went wrong. Please try again.');
+        showError('Could not connect. Check your internet and try again.');
       }
 
       btn.disabled = false;
-      btn.textContent = 'Submit entry';
+      btn.textContent = 'Publish';
     }
   </script>
 
