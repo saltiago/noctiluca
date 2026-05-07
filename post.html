@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Add — Noctiluca</title>
+  <title>Manage — Noctiluca</title>
   <meta name="robots" content="noindex" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inconsolata:wght@300;400&display=swap" rel="stylesheet" />
@@ -17,10 +17,9 @@
       --gold-dim: #7a6540;
       --border: #2a2620;
       --border-light: #3a3428;
+      --red: #c87070;
     }
-
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
     body {
       background: var(--bg);
       color: var(--text);
@@ -30,9 +29,7 @@
       min-height: 100vh;
       -webkit-font-smoothing: antialiased;
     }
-
     a { color: inherit; text-decoration: none; }
-
     header {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -43,7 +40,6 @@
       justify-content: space-between;
       background: linear-gradient(to bottom, var(--bg) 60%, transparent);
     }
-
     .site-title {
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.05rem;
@@ -52,7 +48,6 @@
       text-transform: uppercase;
       color: var(--gold);
     }
-
     nav a {
       font-family: 'Inconsolata', monospace;
       font-size: 0.7rem;
@@ -60,26 +55,21 @@
       text-transform: uppercase;
       color: var(--text-muted);
     }
-
     nav a:hover { color: var(--gold); }
-
     main {
-      max-width: 600px;
+      max-width: 640px;
       margin: 0 auto;
       padding: 7rem 2rem 4rem;
     }
-
-    .form-title {
+    .section-title {
       font-family: 'Inconsolata', monospace;
       font-size: 1rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--gold);
-      margin-bottom: 2.5rem;
+      margin-bottom: 2rem;
     }
-
     .group { margin-bottom: 1.5rem; }
-
     label {
       display: block;
       font-family: 'Inconsolata', monospace;
@@ -89,7 +79,6 @@
       color: var(--text-muted);
       margin-bottom: 0.5rem;
     }
-
     input[type=text], input[type=password], input[type=date], select, textarea {
       width: 100%;
       background: var(--bg-card);
@@ -104,10 +93,8 @@
       transition: border-color 0.2s;
       -webkit-appearance: none;
     }
-
     input:focus, select:focus, textarea:focus { border-color: var(--gold-dim); }
     textarea { resize: vertical; min-height: 120px; line-height: 1.7; }
-
     .hint {
       margin-top: 0.4rem;
       font-family: 'Inconsolata', monospace;
@@ -116,8 +103,6 @@
       color: var(--text-muted);
       line-height: 1.9;
     }
-
-    /* Photo upload button */
     .photo-btn {
       display: flex;
       align-items: center;
@@ -135,14 +120,8 @@
       width: 100%;
       transition: border-color 0.2s, color 0.2s;
     }
-
     .photo-btn:hover { border-color: var(--gold-dim); color: var(--gold); }
-
-    .photo-preview {
-      margin-top: 0.75rem;
-      display: none;
-    }
-
+    .photo-preview { margin-top: 0.75rem; display: none; }
     .photo-preview img {
       width: 100%;
       max-height: 300px;
@@ -150,8 +129,7 @@
       border-radius: 2px;
       display: block;
     }
-
-    .photo-preview .remove-photo {
+    .remove-photo {
       margin-top: 0.5rem;
       font-family: 'Inconsolata', monospace;
       font-size: 0.62rem;
@@ -163,10 +141,7 @@
       border: none;
       padding: 0;
     }
-
-    .photo-preview .remove-photo:hover { color: var(--gold); }
-
-    /* Buttons */
+    .remove-photo:hover { color: var(--gold); }
     .btn {
       background: transparent;
       border: 1px solid var(--gold-dim);
@@ -180,34 +155,137 @@
       border-radius: 2px;
       transition: all 0.2s;
     }
-
     .btn:hover { background: var(--gold-dim); color: var(--bg); }
     .btn:disabled { opacity: 0.5; cursor: not-allowed; }
-
-    .hidden { display: none !important; }
-
-    .success {
-      padding: 1rem;
-      border: 1px solid var(--gold-dim);
-      color: var(--gold);
+    .btn-ghost {
+      background: transparent;
+      border: 1px solid var(--border-light);
+      color: var(--text-muted);
       font-family: 'Inconsolata', monospace;
-      font-size: 0.75rem;
-      letter-spacing: 0.1em;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
       border-radius: 2px;
-      margin-bottom: 2rem;
-      display: none;
+      transition: all 0.2s;
     }
-
-    .error-msg {
+    .btn-ghost:hover { border-color: var(--gold-dim); color: var(--gold); }
+    .btn-danger {
+      background: transparent;
+      border: 1px solid var(--red);
+      color: var(--red);
+      font-family: 'Inconsolata', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.4rem 0.85rem;
+      cursor: pointer;
+      border-radius: 2px;
+      transition: all 0.2s;
+    }
+    .btn-danger:hover { background: var(--red); color: var(--bg); }
+    .hidden { display: none !important; }
+    .notice {
       padding: 1rem;
-      border: 1px solid #c87070;
-      color: #c87070;
       font-family: 'Inconsolata', monospace;
       font-size: 0.72rem;
       letter-spacing: 0.08em;
       border-radius: 2px;
       margin-bottom: 2rem;
       display: none;
+    }
+    .notice.success { border: 1px solid var(--gold-dim); color: var(--gold); }
+    .notice.error   { border: 1px solid var(--red); color: var(--red); }
+
+    /* Divider between sections */
+    .divider {
+      border-top: 1px solid var(--border);
+      margin: 3rem 0;
+    }
+
+    /* Post list for edit/delete */
+    .post-list { display: flex; flex-direction: column; gap: 0; }
+    .post-item {
+      padding: 1.25rem 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .post-item:first-child { border-top: 1px solid var(--border); }
+    .post-item-info { flex: 1; min-width: 0; }
+    .post-item-type {
+      font-family: 'Inconsolata', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+      margin-bottom: 0.25rem;
+    }
+    .post-item-preview {
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .post-item-date {
+      font-family: 'Inconsolata', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+    }
+    .post-item-actions {
+      display: flex;
+      gap: 0.5rem;
+      flex-shrink: 0;
+      align-items: center;
+    }
+
+    /* Confirm delete */
+    .confirm-delete {
+      display: none;
+      margin-top: 0.5rem;
+      font-family: 'Inconsolata', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      color: var(--red);
+      gap: 0.5rem;
+      align-items: center;
+    }
+    .confirm-delete.visible { display: flex; }
+    .confirm-delete button {
+      background: none;
+      border: none;
+      font-family: 'Inconsolata', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      padding: 0;
+    }
+    .confirm-delete .yes { color: var(--red); text-decoration: underline; }
+    .confirm-delete .no { color: var(--text-muted); }
+
+    /* Edit form overlay */
+    .edit-form {
+      display: none;
+      margin-top: 1rem;
+      padding: 1.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: 2px;
+    }
+    .edit-form.visible { display: block; }
+    .edit-form .group { margin-bottom: 1rem; }
+    .edit-form .btn-row {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1.25rem;
     }
 
     @media (max-width: 600px) {
@@ -218,183 +296,377 @@
 </head>
 <body>
 
-  <header>
-    <div class="site-title">Noctiluca</div>
-    <nav><a href="/">← Collection</a></nav>
-  </header>
+<header>
+  <div class="site-title">Noctiluca</div>
+  <nav><a href="/">← Collection</a></nav>
+</header>
 
-  <main>
+<main>
 
-    <!-- Password screen -->
-    <div id="auth-screen">
-      <p class="form-title">Enter passphrase</p>
-      <div class="group">
-        <input type="password" id="pw-input" placeholder="passphrase" autocomplete="current-password" />
-        <p class="hint hidden" id="pw-error" style="color:#c87070;">Incorrect passphrase.</p>
-      </div>
-      <button class="btn" onclick="checkAuth()">Enter</button>
+  <!-- Auth screen -->
+  <div id="auth-screen">
+    <p class="section-title">Enter passphrase</p>
+    <div class="group">
+      <input type="password" id="pw-input" placeholder="passphrase" autocomplete="current-password" />
+      <p class="hint hidden" id="pw-error" style="color:#c87070;">Incorrect passphrase.</p>
+    </div>
+    <button class="btn" onclick="checkAuth()">Enter</button>
+  </div>
+
+  <!-- Main admin screen -->
+  <div id="admin-screen" class="hidden">
+
+    <!-- New post form -->
+    <p class="section-title">New Entry</p>
+
+    <div class="notice success" id="create-success">✓ Published — your post is live.</div>
+    <div class="notice error"   id="create-error"></div>
+
+    <div class="group">
+      <label>Type</label>
+      <select id="type" onchange="updateFields()">
+        <option value="thought">Thought</option>
+        <option value="quote">Quote</option>
+        <option value="image">Image</option>
+        <option value="video">Video</option>
+      </select>
     </div>
 
-    <!-- Post form -->
-    <div id="form-screen" class="hidden">
-      <p class="form-title">New Entry</p>
+    <div class="group">
+      <label id="content-label">Thought</label>
+      <textarea id="content-text" placeholder="A thought, fragment, observation..."></textarea>
 
-      <div class="success" id="success-msg">✓ Published — your post is live.</div>
-      <div class="error-msg" id="error-msg"></div>
+      <div id="photo-upload" class="hidden">
+        <input type="file" id="photo-file" accept="image/*" class="hidden" onchange="handlePhoto(event,'new')" />
+        <button type="button" class="photo-btn" onclick="document.getElementById('photo-file').click()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
+            <polyline points="21 15 16 10 5 21"/>
+          </svg>
+          Choose from Photos
+        </button>
+        <div class="photo-preview" id="photo-preview">
+          <img id="photo-preview-img" src="" alt="preview" />
+          <button class="remove-photo" onclick="removePhoto('new')">✕ Remove</button>
+        </div>
+      </div>
 
-      <!-- Type -->
+      <input type="text" id="content-url" class="hidden" placeholder="https://www.youtube.com/embed/..." />
+      <p class="hint hidden" id="video-hint">Use the embed URL format: youtube.com/embed/VIDEO_ID</p>
+    </div>
+
+    <div class="group hidden" id="attribution-group">
+      <label>Attribution</label>
+      <input type="text" id="attribution" placeholder="Alan Watts, Gary Snyder..." />
+    </div>
+
+    <div class="group hidden" id="caption-group">
+      <label>Caption (optional)</label>
+      <input type="text" id="caption" placeholder="A brief note..." />
+    </div>
+
+    <div class="group">
+      <label>Date</label>
+      <input type="date" id="date" />
+    </div>
+
+    <button class="btn" id="submit-btn" onclick="submitPost()">Publish</button>
+
+    <!-- Existing posts -->
+    <div class="divider"></div>
+    <p class="section-title">All Posts</p>
+    <div class="notice success" id="edit-success">✓ Updated.</div>
+    <div class="notice error"   id="edit-error"></div>
+    <div class="post-list" id="post-list"></div>
+
+  </div>
+</main>
+
+<script>
+  const PASSWORD = 'vega';
+  let allPosts = [];
+  let photoBase64 = null;
+  let editPhotoBase64 = {};
+
+  document.getElementById('date').value = new Date().toISOString().split('T')[0];
+
+  if (sessionStorage.getItem('nc_auth') === '1') showAdmin();
+
+  document.getElementById('pw-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter') checkAuth();
+  });
+
+  function checkAuth() {
+    const val = document.getElementById('pw-input').value;
+    if (!val) return;
+    sessionStorage.setItem('nc_pw', val);
+    // Optimistically show admin; server will 401 if wrong on first action
+    sessionStorage.setItem('nc_auth', '1');
+    showAdmin();
+  }
+
+  async function showAdmin() {
+    document.getElementById('auth-screen').classList.add('hidden');
+    document.getElementById('admin-screen').classList.remove('hidden');
+    await loadPostList();
+  }
+
+  async function loadPostList() {
+    const list = document.getElementById('post-list');
+    list.innerHTML = '<p style="font-family:\'Inconsolata\',monospace;font-size:0.7rem;color:var(--text-muted);letter-spacing:0.1em;">Loading...</p>';
+    try {
+      const res = await fetch('/posts.json?t=' + Date.now());
+      allPosts = await res.json();
+      allPosts.sort((a,b) => new Date(b.date) - new Date(a.date));
+      renderPostList();
+    } catch(e) {
+      list.innerHTML = '<p style="color:var(--red);font-family:\'Inconsolata\',monospace;font-size:0.7rem;">Could not load posts.</p>';
+    }
+  }
+
+  function renderPostList() {
+    const list = document.getElementById('post-list');
+    if (!allPosts.length) {
+      list.innerHTML = '<p style="font-family:\'Inconsolata\',monospace;font-size:0.7rem;color:var(--text-muted);letter-spacing:0.1em;padding:1rem 0;">No posts yet.</p>';
+      return;
+    }
+    list.innerHTML = allPosts.map(post => {
+      const preview = post.type === 'image'
+        ? '[image]'
+        : (post.content || '').substring(0, 60) + ((post.content||'').length > 60 ? '...' : '');
+      const date = post.date
+        ? new Date(post.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+        : '';
+
+      return `
+        <div class="post-item" id="item-${post.id}">
+          <div class="post-item-info">
+            <div class="post-item-type">${post.type}</div>
+            <div class="post-item-preview">${preview}</div>
+            <div class="post-item-date">${date}</div>
+            <div class="confirm-delete" id="confirm-${post.id}">
+              Delete this post?
+              <button class="yes" onclick="deletePost('${post.id}')">Yes, delete</button>
+              <button class="no" onclick="cancelDelete('${post.id}')">Cancel</button>
+            </div>
+            <div class="edit-form" id="edit-${post.id}">
+              ${buildEditForm(post)}
+            </div>
+          </div>
+          <div class="post-item-actions">
+            <button class="btn-ghost" onclick="toggleEdit('${post.id}')">Edit</button>
+            <button class="btn-danger" onclick="confirmDelete('${post.id}')">Delete</button>
+          </div>
+        </div>`;
+    }).join('');
+  }
+
+  function buildEditForm(post) {
+    const isTextType = post.type === 'thought' || post.type === 'quote';
+    return `
       <div class="group">
         <label>Type</label>
-        <select id="type" onchange="updateFields()">
-          <option value="thought">Thought</option>
-          <option value="quote">Quote</option>
-          <option value="image">Image</option>
-          <option value="video">Video</option>
+        <select id="edit-type-${post.id}" onchange="updateEditFields('${post.id}')">
+          <option value="thought" ${post.type==='thought'?'selected':''}>Thought</option>
+          <option value="quote"   ${post.type==='quote'  ?'selected':''}>Quote</option>
+          <option value="image"   ${post.type==='image'  ?'selected':''}>Image</option>
+          <option value="video"   ${post.type==='video'  ?'selected':''}>Video</option>
         </select>
       </div>
-
-      <!-- Content -->
       <div class="group">
-        <label id="content-label">Thought</label>
-
-        <!-- Textarea for thought/quote -->
-        <textarea id="content-text" placeholder="A thought, fragment, observation..."></textarea>
-
-        <!-- Photo upload for image -->
-        <div id="photo-upload" class="hidden">
-          <input type="file" id="photo-file" accept="image/*" class="hidden" onchange="handlePhoto(event)" />
-          <button type="button" class="photo-btn" onclick="document.getElementById('photo-file').click()">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
-              <polyline points="21 15 16 10 5 21"/>
-            </svg>
-            Choose from Photos
+        <label id="edit-content-label-${post.id}">Content</label>
+        <textarea id="edit-content-text-${post.id}" ${!isTextType?'style="display:none"':''}>${isTextType ? post.content : ''}</textarea>
+        <div id="edit-photo-upload-${post.id}" ${post.type!=='image'?'style="display:none"':''}>
+          ${post.type==='image' ? `<img src="${post.content}" style="width:100%;max-height:200px;object-fit:cover;border-radius:2px;margin-bottom:0.5rem;" />` : ''}
+          <input type="file" id="edit-photo-file-${post.id}" accept="image/*" class="hidden" onchange="handlePhoto(event,'edit-${post.id}')" />
+          <button type="button" class="photo-btn" onclick="document.getElementById('edit-photo-file-${post.id}').click()" style="margin-top:0.5rem;">
+            Replace photo
           </button>
-          <div class="photo-preview" id="photo-preview">
-            <img id="photo-preview-img" src="" alt="preview" />
-            <button class="remove-photo" onclick="removePhoto()">✕ Remove</button>
+          <div class="photo-preview" id="edit-photo-preview-${post.id}">
+            <img id="edit-photo-preview-img-${post.id}" src="" alt="preview" />
+            <button class="remove-photo" onclick="removePhoto('edit-${post.id}')">✕ Remove new photo</button>
           </div>
-          <p class="hint" style="margin-top:0.5rem;">Tap to choose a photo from your library</p>
         </div>
-
-        <!-- URL input for video -->
-        <input type="text" id="content-url" class="hidden" placeholder="https://www.youtube.com/embed/..." />
-        <p class="hint hidden" id="video-hint">Use the embed URL format: youtube.com/embed/VIDEO_ID</p>
+        <input type="text" id="edit-content-url-${post.id}" value="${!isTextType && post.type!=='image' ? post.content : ''}" ${post.type!=='video'?'style="display:none"':''} placeholder="https://www.youtube.com/embed/..." />
       </div>
-
-      <!-- Attribution (quotes only) -->
-      <div class="group hidden" id="attribution-group">
+      <div class="group" id="edit-attr-group-${post.id}" ${post.type!=='quote'?'style="display:none"':''}>
         <label>Attribution</label>
-        <input type="text" id="attribution" placeholder="Alan Watts, Gary Snyder..." />
+        <input type="text" id="edit-attribution-${post.id}" value="${post.attribution||''}" placeholder="Alan Watts..." />
       </div>
-
-      <!-- Caption (images and videos) -->
-      <div class="group hidden" id="caption-group">
+      <div class="group" id="edit-cap-group-${post.id}" ${(post.type!=='image'&&post.type!=='video')?'style="display:none"':''}>
         <label>Caption (optional)</label>
-        <input type="text" id="caption" placeholder="A brief note..." />
+        <input type="text" id="edit-caption-${post.id}" value="${post.caption||''}" placeholder="A brief note..." />
       </div>
-
-      <!-- Date -->
       <div class="group">
         <label>Date</label>
-        <input type="date" id="date" />
+        <input type="date" id="edit-date-${post.id}" value="${post.date||''}" />
       </div>
+      <div class="btn-row">
+        <button class="btn" onclick="saveEdit('${post.id}')">Save</button>
+        <button class="btn-ghost" onclick="toggleEdit('${post.id}')">Cancel</button>
+      </div>`;
+  }
 
-      <button class="btn" id="submit-btn" onclick="submitPost()">Publish</button>
-    </div>
+  function updateEditFields(id) {
+    const type = document.getElementById(`edit-type-${id}`).value;
+    const textArea = document.getElementById(`edit-content-text-${id}`);
+    const photoDiv = document.getElementById(`edit-photo-upload-${id}`);
+    const urlInput = document.getElementById(`edit-content-url-${id}`);
+    const attrGroup = document.getElementById(`edit-attr-group-${id}`);
+    const capGroup = document.getElementById(`edit-cap-group-${id}`);
 
-  </main>
+    textArea.style.display = 'none';
+    photoDiv.style.display = 'none';
+    urlInput.style.display = 'none';
+    attrGroup.style.display = 'none';
+    capGroup.style.display = 'none';
 
-  <script>
-    // Set today's date
-    document.getElementById('date').value = new Date().toISOString().split('T')[0];
+    if (type === 'thought') { textArea.style.display = ''; }
+    else if (type === 'quote') { textArea.style.display = ''; attrGroup.style.display = ''; }
+    else if (type === 'image') { photoDiv.style.display = ''; capGroup.style.display = ''; }
+    else if (type === 'video') { urlInput.style.display = ''; capGroup.style.display = ''; }
+  }
 
-    // Restore auth
-    if (sessionStorage.getItem('nc_auth') === '1') showForm();
+  function toggleEdit(id) {
+    const form = document.getElementById(`edit-${id}`);
+    form.classList.toggle('visible');
+  }
 
-    document.getElementById('pw-input').addEventListener('keydown', e => {
-      if (e.key === 'Enter') checkAuth();
-    });
+  function confirmDelete(id) {
+    document.querySelectorAll('.confirm-delete').forEach(el => el.classList.remove('visible'));
+    document.getElementById(`confirm-${id}`).classList.add('visible');
+  }
 
-    function checkAuth() {
-      // Password is checked server-side — just pass it through
-      const val = document.getElementById('pw-input').value;
-      if (!val) return;
-      sessionStorage.setItem('nc_pw', val);
-      sessionStorage.setItem('nc_auth', '1');
-      showForm();
+  function cancelDelete(id) {
+    document.getElementById(`confirm-${id}`).classList.remove('visible');
+  }
+
+  // New post fields
+  function updateFields() {
+    const type = document.getElementById('type').value;
+    const label = document.getElementById('content-label');
+    const textarea = document.getElementById('content-text');
+    const photoUpload = document.getElementById('photo-upload');
+    const urlInput = document.getElementById('content-url');
+    const videoHint = document.getElementById('video-hint');
+    const attrGroup = document.getElementById('attribution-group');
+    const capGroup = document.getElementById('caption-group');
+
+    textarea.classList.add('hidden');
+    photoUpload.classList.add('hidden');
+    urlInput.classList.add('hidden');
+    videoHint.classList.add('hidden');
+    attrGroup.classList.add('hidden');
+    capGroup.classList.add('hidden');
+
+    if (type === 'thought') {
+      label.textContent = 'Thought';
+      textarea.placeholder = 'A thought, fragment, observation...';
+      textarea.classList.remove('hidden');
+    } else if (type === 'quote') {
+      label.textContent = 'Quote';
+      textarea.placeholder = 'The quote text...';
+      textarea.classList.remove('hidden');
+      attrGroup.classList.remove('hidden');
+    } else if (type === 'image') {
+      label.textContent = 'Photo';
+      photoUpload.classList.remove('hidden');
+      capGroup.classList.remove('hidden');
+    } else if (type === 'video') {
+      label.textContent = 'YouTube embed URL';
+      urlInput.classList.remove('hidden');
+      videoHint.classList.remove('hidden');
+      capGroup.classList.remove('hidden');
     }
+  }
 
-    function showForm() {
-      document.getElementById('auth-screen').classList.add('hidden');
-      document.getElementById('form-screen').classList.remove('hidden');
-    }
-
-    function updateFields() {
-      const type = document.getElementById('type').value;
-      const label = document.getElementById('content-label');
-      const textarea = document.getElementById('content-text');
-      const photoUpload = document.getElementById('photo-upload');
-      const urlInput = document.getElementById('content-url');
-      const videoHint = document.getElementById('video-hint');
-      const attrGroup = document.getElementById('attribution-group');
-      const capGroup = document.getElementById('caption-group');
-
-      // Hide all
-      textarea.classList.add('hidden');
-      photoUpload.classList.add('hidden');
-      urlInput.classList.add('hidden');
-      videoHint.classList.add('hidden');
-      attrGroup.classList.add('hidden');
-      capGroup.classList.add('hidden');
-
-      if (type === 'thought') {
-        label.textContent = 'Thought';
-        textarea.placeholder = 'A thought, fragment, observation...';
-        textarea.classList.remove('hidden');
-      } else if (type === 'quote') {
-        label.textContent = 'Quote';
-        textarea.placeholder = 'The quote text...';
-        textarea.classList.remove('hidden');
-        attrGroup.classList.remove('hidden');
-      } else if (type === 'image') {
-        label.textContent = 'Photo';
-        photoUpload.classList.remove('hidden');
-        capGroup.classList.remove('hidden');
-      } else if (type === 'video') {
-        label.textContent = 'YouTube embed URL';
-        urlInput.classList.remove('hidden');
-        videoHint.classList.remove('hidden');
-        capGroup.classList.remove('hidden');
-      }
-    }
-
-    let photoBase64 = null;
-
-    function handlePhoto(event) {
-      const file = event.target.files[0];
-      if (!file) return;
-
-      const reader = new FileReader();
-      reader.onload = e => {
-        photoBase64 = e.target.result; // full data URL
+  function handlePhoto(event, context) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = e => {
+      if (context === 'new') {
+        photoBase64 = e.target.result;
         document.getElementById('photo-preview-img').src = photoBase64;
         document.getElementById('photo-preview').style.display = 'block';
-      };
-      reader.readAsDataURL(file);
-    }
+      } else {
+        const id = context.replace('edit-', '');
+        editPhotoBase64[id] = e.target.result;
+        document.getElementById(`edit-photo-preview-img-${id}`).src = e.target.result;
+        document.getElementById(`edit-photo-preview-${id}`).style.display = 'block';
+      }
+    };
+    reader.readAsDataURL(file);
+  }
 
-    function removePhoto() {
+  function removePhoto(context) {
+    if (context === 'new') {
       photoBase64 = null;
       document.getElementById('photo-file').value = '';
       document.getElementById('photo-preview').style.display = 'none';
-      document.getElementById('photo-preview-img').src = '';
+    } else {
+      const id = context.replace('edit-', '');
+      editPhotoBase64[id] = null;
+      document.getElementById(`edit-photo-file-${id}`).value = '';
+      document.getElementById(`edit-photo-preview-${id}`).style.display = 'none';
+    }
+  }
+
+  function showNotice(id, type, msg) {
+    const el = document.getElementById(id);
+    el.textContent = msg || el.textContent;
+    el.className = `notice ${type}`;
+    el.style.display = 'block';
+    setTimeout(() => { el.style.display = 'none'; }, 4000);
+  }
+
+  async function api(payload) {
+    payload.password = sessionStorage.getItem('nc_pw');
+    const res = await fetch('/api/post', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    if (res.status === 401) {
+      sessionStorage.removeItem('nc_auth');
+      sessionStorage.removeItem('nc_pw');
+      location.reload();
+    }
+    return res;
+  }
+
+  async function submitPost() {
+    const type = document.getElementById('type').value;
+    const btn = document.getElementById('submit-btn');
+
+    let content = '';
+    let imageData = null;
+
+    if (type === 'thought' || type === 'quote') {
+      content = document.getElementById('content-text').value.trim();
+      if (!content) { showNotice('create-error', 'error', 'Please enter content.'); return; }
+    } else if (type === 'image') {
+      if (!photoBase64) { showNotice('create-error', 'error', 'Please choose a photo.'); return; }
+      imageData = photoBase64;
+    } else if (type === 'video') {
+      content = document.getElementById('content-url').value.trim();
+      if (!content) { showNotice('create-error', 'error', 'Please enter a video URL.'); return; }
     }
 
-    function showSuccess() {
-      document.getElementById('success-msg').style.display = 'block';
-      document.getElementById('error-msg').style.display = 'none';
-      // Reset form
+    btn.disabled = true;
+    btn.textContent = type === 'image' ? 'Uploading...' : 'Publishing...';
+
+    const payload = {
+      action: 'create', type, content,
+      date: document.getElementById('date').value,
+      attribution: document.getElementById('attribution').value.trim(),
+      caption: document.getElementById('caption').value.trim(),
+    };
+    if (imageData) { payload.imageData = imageData; payload.imageType = 'image'; }
+
+    const res = await api(payload);
+    if (res.ok) {
+      showNotice('create-success', 'success', '✓ Published — your post is live.');
       document.getElementById('content-text').value = '';
       document.getElementById('content-url').value = '';
       document.getElementById('attribution').value = '';
@@ -402,81 +674,64 @@
       document.getElementById('date').value = new Date().toISOString().split('T')[0];
       document.getElementById('type').value = 'thought';
       updateFields();
-      removePhoto();
+      removePhoto('new');
+      setTimeout(loadPostList, 3000);
+    } else {
+      showNotice('create-error', 'error', 'Something went wrong. Please try again.');
     }
 
-    function showError(msg) {
-      const el = document.getElementById('error-msg');
-      el.textContent = msg;
-      el.style.display = 'block';
-      document.getElementById('success-msg').style.display = 'none';
+    btn.disabled = false;
+    btn.textContent = 'Publish';
+  }
+
+  async function saveEdit(id) {
+    const type = document.getElementById(`edit-type-${id}`).value;
+    const isText = type === 'thought' || type === 'quote';
+    let content = '';
+    let imageData = null;
+
+    if (isText) {
+      content = document.getElementById(`edit-content-text-${id}`).value.trim();
+    } else if (type === 'image') {
+      // Keep existing image unless new one chosen
+      if (editPhotoBase64[id]) {
+        imageData = editPhotoBase64[id];
+      } else {
+        const existing = allPosts.find(p => p.id === id);
+        content = existing ? existing.content : '';
+      }
+    } else {
+      content = document.getElementById(`edit-content-url-${id}`).value.trim();
     }
 
-    async function submitPost() {
-      const type = document.getElementById('type').value;
-      const btn = document.getElementById('submit-btn');
-      const password = sessionStorage.getItem('nc_pw');
+    const payload = {
+      action: 'edit', id, type, content,
+      date: document.getElementById(`edit-date-${id}`).value,
+      attribution: document.getElementById(`edit-attribution-${id}`)?.value?.trim() || '',
+      caption: document.getElementById(`edit-caption-${id}`)?.value?.trim() || '',
+    };
+    if (imageData) { payload.imageData = imageData; payload.imageType = 'image'; }
 
-      let content = '';
-      let imageData = null;
-
-      if (type === 'thought' || type === 'quote') {
-        content = document.getElementById('content-text').value.trim();
-        if (!content) { showError('Please enter content.'); return; }
-      } else if (type === 'image') {
-        if (!photoBase64) { showError('Please choose a photo.'); return; }
-        imageData = photoBase64;
-        content = ''; // will be set by server after Cloudinary upload
-      } else if (type === 'video') {
-        content = document.getElementById('content-url').value.trim();
-        if (!content) { showError('Please enter a video URL.'); return; }
-      }
-
-      btn.disabled = true;
-      btn.textContent = type === 'image' ? 'Uploading...' : 'Publishing...';
-
-      const payload = {
-        password,
-        type,
-        content,
-        date: document.getElementById('date').value,
-        attribution: document.getElementById('attribution').value.trim(),
-        caption: document.getElementById('caption').value.trim(),
-      };
-
-      if (imageData) {
-        payload.imageData = imageData;
-        payload.imageType = 'image';
-      }
-
-      try {
-        const res = await fetch('/api/post', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
-        });
-
-        const data = await res.json();
-
-        if (res.ok && data.success) {
-          showSuccess();
-        } else if (res.status === 401) {
-          sessionStorage.removeItem('nc_auth');
-          sessionStorage.removeItem('nc_pw');
-          document.getElementById('auth-screen').classList.remove('hidden');
-          document.getElementById('form-screen').classList.add('hidden');
-          document.getElementById('pw-error').classList.remove('hidden');
-        } else {
-          showError('Something went wrong. Please try again.');
-        }
-      } catch(e) {
-        showError('Could not connect. Check your internet and try again.');
-      }
-
-      btn.disabled = false;
-      btn.textContent = 'Publish';
+    const res = await api(payload);
+    if (res.ok) {
+      showNotice('edit-success', 'success', '✓ Updated.');
+      toggleEdit(id);
+      setTimeout(loadPostList, 3000);
+    } else {
+      showNotice('edit-error', 'error', 'Could not save. Try again.');
     }
-  </script>
+  }
 
+  async function deletePost(id) {
+    const res = await api({ action: 'delete', id });
+    if (res.ok) {
+      document.getElementById(`item-${id}`).remove();
+      allPosts = allPosts.filter(p => p.id !== id);
+      showNotice('edit-success', 'success', '✓ Deleted.');
+    } else {
+      showNotice('edit-error', 'error', 'Could not delete. Try again.');
+    }
+  }
+</script>
 </body>
 </html>

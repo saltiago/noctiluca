@@ -3,9 +3,8 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { password, type, content, attribution, caption, date, imageData, imageType } = req.body;
+  const { password, action, id, type, content, attribution, caption, date, imageData, imageType } = req.body;
 
-  // Check password
   if (password !== process.env.POST_PASSWORD) {
     return res.status(401).json({ error: 'Unauthorized' });
   }
@@ -19,29 +18,6 @@ export default async function handler(req, res) {
   }
 
   try {
-    let finalContent = content;
-
-    // If there's image data, upload to Cloudinary first
-    if (imageData && imageType === 'image') {
-      const cloudName = process.env.CLOUDINARY_CLOUD_NAME;
-      const uploadPreset = process.env.CLOUDINARY_UPLOAD_PRESET;
-
-      const formData = new URLSearchParams();
-      formData.append('file', imageData);
-      formData.append('upload_preset', uploadPreset);
-
-      const cloudRes = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
-        method: 'POST',
-        body: formData,
-      });
-
-      const cloudData = await cloudRes.json();
-      if (!cloudData.secure_url) {
-        return res.status(500).json({ error: 'Image upload failed' });
-      }
-      finalContent = cloudData.secure_url;
-    }
-
     // Get current posts.json from GitHub
     const fileRes = await fetch(
       `https://api.github.com/repos/${owner}/${repo}/contents/posts.json`,
@@ -54,21 +30,64 @@ export default async function handler(req, res) {
     );
 
     const fileData = await fileRes.json();
-    const currentPosts = JSON.parse(Buffer.from(fileData.content, 'base64').toString('utf8'));
+    let posts = JSON.parse(Buffer.from(fileData.content, 'base64').toString('utf8'));
 
-    // Create new post
-    const newPost = {
-      id: Date.now().toString(),
-      type,
-      content: finalContent,
-      date: date || new Date().toISOString().split('T')[0],
-    };
+    // DELETE
+    if (action === 'delete') {
+      posts = posts.filter(p => p.id !== id);
+    }
 
-    if (attribution) newPost.attribution = attribution;
-    if (caption) newPost.caption = caption;
+    // CREATE or EDIT
+    if (action === 'create' || action === 'edit') {
+      let finalContent = content;
 
-    // Prepend new post
-    const updatedPosts = [newPost, ...currentPosts];
+      // Upload image to Cloudinary if provided
+      if (imageData && imageType === 'image') {
+        const cloudName = process.env.CLOUDINARY_CLOUD_NAME;
+        const uploadPreset = process.env.CLOUDINARY_UPLOAD_PRESET;
+
+        const formData = new URLSearchParams();
+        formData.append('file', imageData);
+        formData.append('upload_preset', uploadPreset);
+
+        const cloudRes = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
+          method: 'POST',
+          body: formData,
+        });
+
+        const cloudData = await cloudRes.json();
+        if (!cloudData.secure_url) {
+          return res.status(500).json({ error: 'Image upload failed' });
+        }
+        finalContent = cloudData.secure_url;
+      }
+
+      if (action === 'create') {
+        const newPost = {
+          id: Date.now().toString(),
+          type,
+          content: finalContent,
+          date: date || new Date().toISOString().split('T')[0],
+        };
+        if (attribution) newPost.attribution = attribution;
+        if (caption) newPost.caption = caption;
+        posts = [newPost, ...posts];
+      }
+
+      if (action === 'edit') {
+        posts = posts.map(p => {
+          if (p.id !== id) return p;
+          const updated = { ...p, type, date };
+          if (finalContent) updated.content = finalContent;
+          updated.attribution = attribution || '';
+          updated.caption = caption || '';
+          // Clean up empty fields
+          if (!updated.attribution) delete updated.attribution;
+          if (!updated.caption) delete updated.caption;
+          return updated;
+        });
+      }
+    }
 
     // Write back to GitHub
     const updateRes = await fetch(
@@ -81,8 +100,8 @@ export default async function handler(req, res) {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          message: `Add ${type} post`,
-          content: Buffer.from(JSON.stringify(updatedPosts, null, 2)).toString('base64'),
+          message: `${action} post`,
+          content: Buffer.from(JSON.stringify(posts, null, 2)).toString('base64'),
           sha: fileData.sha,
         }),
       }
