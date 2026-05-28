@@ -303,16 +303,35 @@
     .lb-confirm .yes { color: #c87070; text-decoration: underline; }
     .lb-confirm .no  { color: var(--text-muted); }
 
-    /* Inline edit form */
-    .lb-edit-form {
+    /* ── Edit overlay — true full-screen bottom sheet ── */
+    .edit-overlay {
       display: none;
-      margin-top: 1.25rem;
-      padding: 1.25rem;
-      background: rgba(28,26,20,0.95);
-      border: 1px solid var(--border);
-      border-radius: 2px;
+      position: fixed;
+      inset: 0;
+      z-index: 700;
+      background: rgba(10,9,7,0.65);
+      align-items: flex-end;
+      justify-content: center;
     }
-    .lb-edit-form.visible { display: block; }
+    .edit-overlay.open { display: flex; }
+
+    .edit-sheet {
+      background: #1c1a14;
+      border-top: 1px solid var(--border);
+      border-radius: 14px 14px 0 0;
+      padding: 1.75rem 1.5rem 2.5rem;
+      width: 100%;
+      max-width: 680px;
+      max-height: 88vh;
+      overflow-y: auto;
+      box-shadow: 0 -4px 40px rgba(0,0,0,0.7);
+      animation: slideUp 0.25s ease;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(60px); opacity: 0; }
+      to   { transform: translateY(0);    opacity: 1; }
+    }
 
     .ef-group { margin-bottom: 1rem; }
     .ef-label {
@@ -333,14 +352,14 @@
       background: transparent; border: 1px solid var(--gold-dim); color: var(--gold);
       font-family: 'Inconsolata', monospace; font-size: 0.62rem;
       letter-spacing: 0.15em; text-transform: uppercase;
-      padding: 0.45rem 1.1rem; cursor: pointer; border-radius: 2px; transition: all 0.2s;
+      padding: 0.6rem 1.25rem; cursor: pointer; border-radius: 2px; transition: all 0.2s;
     }
     .ef-save:hover { background: var(--gold-dim); color: var(--bg); }
     .ef-cancel {
       background: transparent; border: 1px solid var(--border); color: var(--text-muted);
       font-family: 'Inconsolata', monospace; font-size: 0.62rem;
       letter-spacing: 0.15em; text-transform: uppercase;
-      padding: 0.45rem 0.85rem; cursor: pointer; border-radius: 2px;
+      padding: 0.6rem 0.85rem; cursor: pointer; border-radius: 2px;
     }
     .ef-notice {
       margin-top: 0.75rem; font-family: 'Inconsolata', monospace;
@@ -349,9 +368,9 @@
     .ef-notice.success { color: var(--gold); }
     .ef-notice.error   { color: #c87070; }
 
+    .lb-edit-form { display: none !important; }
     .hidden { display: none !important; }
 
-    /* ── Mobile edit form: full-width bottom sheet ── */
     @media (max-width: 600px) {
       header { padding: 1.1rem 1.25rem; }
       main { padding-top: 5rem; padding-left: 0.6rem; padding-right: 0.6rem; columns: 2 140px; column-gap: 0.5rem; }
@@ -359,20 +378,6 @@
       .lb-feed { padding: 4.5rem 1.25rem 3rem; }
       .lb-item blockquote { font-size: 1.4rem; }
       .lb-item .lb-thought { font-size: 1.1rem; }
-
-      .lb-edit-form.visible {
-        position: fixed;
-        bottom: 0; left: 0; right: 0;
-        margin: 0;
-        border-radius: 14px 14px 0 0;
-        border-left: none; border-right: none; border-bottom: none;
-        padding: 1.5rem 1.25rem 2.5rem;
-        max-height: 88vh;
-        overflow-y: auto;
-        z-index: 600;
-        background: #1c1a14;
-        box-shadow: 0 -4px 32px rgba(0,0,0,0.6);
-      }
     }
   </style>
 </head>
@@ -385,7 +390,12 @@
 
 <main id="grid"></main>
 
-<!-- No footer -->
+<!-- Edit overlay — full screen bottom sheet -->
+<div class="edit-overlay" id="edit-overlay" onclick="handleOverlayClick(event)">
+  <div class="edit-sheet" id="edit-sheet">
+    <div id="edit-sheet-content"></div>
+  </div>
+</div>
 
 <!-- Lightbox -->
 <div class="lightbox" id="lightbox">
@@ -596,16 +606,27 @@
     cg.style.display = (type==='image'||type==='video') ? '' : 'none';
   }
 
+  let currentEditIndex = null;
+
+  function handleOverlayClick(e) {
+    if (e.target === document.getElementById('edit-overlay')) closeEditOverlay();
+  }
+
+  function closeEditOverlay() {
+    document.getElementById('edit-overlay').classList.remove('open');
+    currentEditIndex = null;
+  }
+
   function toggleEdit(i) {
-    const form = document.getElementById(`edit-form-${i}`);
-    form.classList.toggle('visible');
     hideConfirm(i);
+    currentEditIndex = i;
+    const post = allPosts[i];
+    document.getElementById('edit-sheet-content').innerHTML = buildEditForm(post, i);
+    document.getElementById('edit-overlay').classList.add('open');
   }
 
   function showConfirm(i) {
     document.getElementById(`confirm-${i}`).classList.add('visible');
-    const form = document.getElementById(`edit-form-${i}`);
-    if (form) form.classList.remove('visible');
   }
 
   function hideConfirm(i) {
@@ -638,7 +659,7 @@
       notice.textContent = '✓ Saved — reloading...';
       notice.className = 'ef-notice success';
       notice.style.display = 'block';
-      setTimeout(() => { closeLightbox(); loadPosts(); }, 1500);
+      setTimeout(() => { closeEditOverlay(); closeLightbox(); loadPosts(); }, 1500);
     } else {
       notice.textContent = res.status===401 ? 'Session expired — re-enter passphrase at /post.html' : 'Could not save. Try again.';
       notice.className = 'ef-notice error';
