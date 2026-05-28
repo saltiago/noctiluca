@@ -531,9 +531,6 @@
             <button class="yes" onclick="doDelete(${i})">Yes, delete</button>
             <button class="no" onclick="hideConfirm(${i})">Cancel</button>
           </div>
-        </div>
-        <div class="lb-edit-form" id="edit-form-${i}">
-          ${buildEditForm(post, i)}
         </div>` : '';
 
       return `<div class="lb-item" id="lb-item-${i}">${meta}${content}${actions}</div>`;
@@ -589,7 +586,7 @@
       </div>
       <div class="ef-row">
         <button class="ef-save" onclick="saveEdit(${i})">Save</button>
-        <button class="ef-cancel" onclick="toggleEdit(${i})">Cancel</button>
+        <button class="ef-cancel" onclick="closeEditOverlay()">Cancel</button>
       </div>
       <div class="ef-notice" id="ef-notice-${i}"></div>`;
   }
