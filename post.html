@@ -9,318 +9,244 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inconsolata:wght@300;400&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #111009;
-      --bg-card: #1a1814;
-      --text: #e8e0cc;
-      --text-muted: #8a8070;
-      --gold: #c8a96e;
-      --gold-dim: #7a6540;
-      --border: #2a2620;
-      --border-light: #3a3428;
-      --red: #c87070;
+      --bg: #111009; --card: #1a1814; --text: #e8e0cc;
+      --muted: #8a8070; --gold: #c8a96e; --gold2: #7a6540;
+      --border: #2a2620; --bl: #3a3428; --red: #c87070;
     }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * { margin:0; padding:0; box-sizing:border-box; }
     body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      font-weight: 300;
-      line-height: 1.7;
-      min-height: 100vh;
-      -webkit-font-smoothing: antialiased;
+      background:var(--bg); color:var(--text);
+      font-family:'Cormorant Garamond',Georgia,serif;
+      font-weight:300; line-height:1.7; min-height:100vh;
+      -webkit-font-smoothing:antialiased;
     }
-    a { color: inherit; text-decoration: none; }
+    a { color:inherit; text-decoration:none; }
+
     header {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      padding: 1.5rem 2.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: linear-gradient(to bottom, var(--bg) 60%, transparent);
+      position:fixed; top:0; left:0; right:0; z-index:100;
+      padding:1.5rem 2.5rem;
+      display:flex; align-items:center; justify-content:space-between;
+      background:linear-gradient(to bottom,var(--bg) 60%,transparent);
     }
-    .site-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.05rem;
-      font-weight: 400;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--gold);
+    .logo {
+      font-family:'Cormorant Garamond',serif; font-size:1.05rem;
+      font-weight:400; letter-spacing:.25em; text-transform:uppercase; color:var(--gold);
     }
     nav a {
-      font-family: 'Inconsolata', monospace;
-      font-size: 0.7rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--text-muted);
+      font-family:'Inconsolata',monospace; font-size:.7rem;
+      letter-spacing:.15em; text-transform:uppercase; color:var(--muted);
     }
-    nav a:hover { color: var(--gold); }
-    main {
-      max-width: 640px;
-      margin: 0 auto;
-      padding: 7rem 2rem 4rem;
+    nav a:hover { color:var(--gold); }
+
+    main { max-width:640px; margin:0 auto; padding:7rem 2rem 4rem; }
+
+    .sec-title {
+      font-family:'Inconsolata',monospace; font-size:1rem;
+      letter-spacing:.2em; text-transform:uppercase; color:var(--gold);
+      margin-bottom:2rem; font-weight:400;
     }
-    .section-title {
-      font-family: 'Inconsolata', monospace;
-      font-size: 1rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 2rem;
-    }
-    .group { margin-bottom: 1.5rem; }
+
+    .group { margin-bottom:1.5rem; }
     label {
-      display: block;
-      font-family: 'Inconsolata', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin-bottom: 0.5rem;
+      display:block; font-family:'Inconsolata',monospace; font-size:.65rem;
+      letter-spacing:.2em; text-transform:uppercase; color:var(--muted); margin-bottom:.5rem;
     }
     input[type=text], input[type=password], input[type=date], select, textarea {
-      width: 100%;
-      background: var(--bg-card);
-      border: 1px solid var(--border-light);
-      color: var(--text);
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1rem;
-      font-weight: 300;
-      padding: 0.75rem 1rem;
-      border-radius: 2px;
-      outline: none;
-      transition: border-color 0.2s;
-      -webkit-appearance: none;
+      width:100%; background:var(--card); border:1px solid var(--bl);
+      color:var(--text); font-family:'Cormorant Garamond',serif;
+      font-size:1rem; font-weight:300; padding:.75rem 1rem;
+      border-radius:2px; outline:none; -webkit-appearance:none; transition:border-color .2s;
     }
-    input:focus, select:focus, textarea:focus { border-color: var(--gold-dim); }
-    textarea { resize: vertical; min-height: 120px; line-height: 1.7; }
+    input:focus, select:focus, textarea:focus { border-color:var(--gold2); }
+    textarea { resize:vertical; min-height:120px; line-height:1.7; }
+
     .hint {
-      margin-top: 0.4rem;
-      font-family: 'Inconsolata', monospace;
-      font-size: 0.62rem;
-      letter-spacing: 0.08em;
-      color: var(--text-muted);
-      line-height: 1.9;
+      margin-top:.4rem; font-family:'Inconsolata',monospace;
+      font-size:.62rem; letter-spacing:.08em; color:var(--muted); line-height:1.9;
     }
+
     .photo-btn {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      background: var(--bg-card);
-      border: 1px dashed var(--border-light);
-      color: var(--text-muted);
-      font-family: 'Inconsolata', monospace;
-      font-size: 0.7rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      padding: 1rem;
-      border-radius: 2px;
-      cursor: pointer;
-      width: 100%;
-      transition: border-color 0.2s, color 0.2s;
+      display:flex; align-items:center; gap:.75rem;
+      background:var(--card); border:1px dashed var(--bl); color:var(--muted);
+      font-family:'Inconsolata',monospace; font-size:.7rem;
+      letter-spacing:.12em; text-transform:uppercase;
+      padding:1rem; border-radius:2px; cursor:pointer; width:100%; transition:all .2s;
     }
-    .photo-btn:hover { border-color: var(--gold-dim); color: var(--gold); }
-    .photo-preview { margin-top: 0.75rem; display: none; }
-    .photo-preview img {
-      width: 100%;
-      max-height: 300px;
-      object-fit: cover;
-      border-radius: 2px;
-      display: block;
+    .photo-btn:hover { border-color:var(--gold2); color:var(--gold); }
+    .photo-preview { margin-top:.75rem; display:none; }
+    .photo-preview img { width:100%; max-height:300px; object-fit:cover; border-radius:2px; display:block; }
+    .rm-photo {
+      margin-top:.5rem; font-family:'Inconsolata',monospace; font-size:.62rem;
+      letter-spacing:.1em; text-transform:uppercase; color:var(--muted);
+      cursor:pointer; background:none; border:none; padding:0;
     }
-    .remove-photo {
-      margin-top: 0.5rem;
-      font-family: 'Inconsolata', monospace;
-      font-size: 0.62rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      cursor: pointer;
-      background: none;
-      border: none;
-      padding: 0;
-    }
-    .remove-photo:hover { color: var(--gold); }
+    .rm-photo:hover { color:var(--gold); }
+
     .btn {
-      background: transparent;
-      border: 1px solid var(--gold-dim);
-      color: var(--gold);
-      font-family: 'Inconsolata', monospace;
-      font-size: 0.7rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      padding: 0.75rem 2rem;
-      cursor: pointer;
-      border-radius: 2px;
-      transition: all 0.2s;
+      background:transparent; border:1px solid var(--gold2); color:var(--gold);
+      font-family:'Inconsolata',monospace; font-size:.7rem;
+      letter-spacing:.2em; text-transform:uppercase;
+      padding:.75rem 2rem; cursor:pointer; border-radius:2px; transition:all .2s;
     }
-    .btn:hover { background: var(--gold-dim); color: var(--bg); }
-    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
-    .btn-ghost {
-      background: transparent;
-      border: 1px solid var(--border-light);
-      color: var(--text-muted);
-      font-family: 'Inconsolata', monospace;
-      font-size: 0.7rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      padding: 0.5rem 1rem;
-      cursor: pointer;
-      border-radius: 2px;
-      transition: all 0.2s;
-    }
-    .btn-ghost:hover { border-color: var(--gold-dim); color: var(--gold); }
-    .btn-danger {
-      background: transparent;
-      border: 1px solid var(--red);
-      color: var(--red);
-      font-family: 'Inconsolata', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      padding: 0.4rem 0.85rem;
-      cursor: pointer;
-      border-radius: 2px;
-      transition: all 0.2s;
-    }
-    .btn-danger:hover { background: var(--red); color: var(--bg); }
-    .hidden { display: none !important; }
+    .btn:hover { background:var(--gold2); color:var(--bg); }
+    .btn:disabled { opacity:.5; cursor:not-allowed; }
+
     .notice {
-      padding: 1rem;
-      font-family: 'Inconsolata', monospace;
-      font-size: 0.72rem;
-      letter-spacing: 0.08em;
-      border-radius: 2px;
-      margin-bottom: 2rem;
-      display: none;
+      padding:1rem; font-family:'Inconsolata',monospace; font-size:.72rem;
+      letter-spacing:.08em; border-radius:2px; margin-bottom:2rem; display:none;
     }
-    .notice.success { border: 1px solid var(--gold-dim); color: var(--gold); }
-    .notice.error   { border: 1px solid var(--red); color: var(--red); }
+    .notice.ok  { border:1px solid var(--gold2); color:var(--gold); }
+    .notice.err { border:1px solid var(--red);   color:var(--red); }
 
-    /* Divider between sections */
-    .divider {
-      border-top: 1px solid var(--border);
-      margin: 3rem 0;
-    }
+    .divider { border-top:1px solid var(--border); margin:3rem 0; }
 
-    /* Post list for edit/delete */
-    .post-list { display: flex; flex-direction: column; gap: 0; }
+    /* Post list */
+    .post-list { display:flex; flex-direction:column; }
     .post-item {
-      padding: 1.25rem 0;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 1rem;
+      padding:1.25rem 0; border-bottom:1px solid var(--border);
+      display:flex; align-items:flex-start; justify-content:space-between; gap:1rem;
     }
-    .post-item:first-child { border-top: 1px solid var(--border); }
-    .post-item-info { flex: 1; min-width: 0; }
-    .post-item-type {
-      font-family: 'Inconsolata', monospace;
-      font-size: 0.6rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--gold-dim);
-      margin-bottom: 0.25rem;
+    .post-item:first-child { border-top:1px solid var(--border); }
+    .pi-info { flex:1; min-width:0; }
+    .pi-type {
+      font-family:'Inconsolata',monospace; font-size:.6rem;
+      letter-spacing:.15em; text-transform:uppercase; color:var(--gold2); margin-bottom:.25rem;
     }
-    .post-item-preview {
-      font-size: 1rem;
-      font-weight: 300;
-      color: var(--text);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+    .pi-preview {
+      font-size:1rem; font-weight:300; color:var(--text);
+      white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
     }
-    .post-item-date {
-      font-family: 'Inconsolata', monospace;
-      font-size: 0.6rem;
-      letter-spacing: 0.08em;
-      color: var(--text-muted);
-      margin-top: 0.25rem;
+    .pi-date {
+      font-family:'Inconsolata',monospace; font-size:.6rem;
+      letter-spacing:.08em; color:var(--muted); margin-top:.25rem;
     }
-    .post-item-actions {
-      display: flex;
-      gap: 0.5rem;
-      flex-shrink: 0;
-      align-items: center;
+    .pi-actions { display:flex; gap:.5rem; flex-shrink:0; align-items:center; }
+    .pi-edit {
+      background:transparent; border:1px solid var(--bl); color:var(--muted);
+      font-family:'Inconsolata',monospace; font-size:.62rem;
+      letter-spacing:.12em; text-transform:uppercase;
+      padding:.4rem .85rem; cursor:pointer; border-radius:2px; transition:all .2s;
     }
+    .pi-edit:hover { border-color:var(--gold2); color:var(--gold); }
+    .pi-del {
+      background:transparent; border:1px solid var(--red); color:var(--red);
+      font-family:'Inconsolata',monospace; font-size:.62rem;
+      letter-spacing:.12em; text-transform:uppercase;
+      padding:.4rem .85rem; cursor:pointer; border-radius:2px; transition:all .2s;
+    }
+    .pi-del:hover { background:var(--red); color:var(--bg); }
 
-    /* Confirm delete */
-    .confirm-delete {
-      display: none;
-      margin-top: 0.5rem;
-      font-family: 'Inconsolata', monospace;
-      font-size: 0.62rem;
-      letter-spacing: 0.08em;
-      color: var(--red);
-      gap: 0.5rem;
-      align-items: center;
+    /* Confirm delete inline */
+    .pi-confirm {
+      display:none; width:100%; padding:.5rem 0;
+      font-family:'Inconsolata',monospace; font-size:.62rem;
+      letter-spacing:.08em; color:var(--red);
+      align-items:center; gap:.75rem;
     }
-    .confirm-delete.visible { display: flex; }
-    .confirm-delete button {
-      background: none;
-      border: none;
-      font-family: 'Inconsolata', monospace;
-      font-size: 0.62rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      cursor: pointer;
-      padding: 0;
+    .pi-confirm.on { display:flex; }
+    .pi-confirm button {
+      background:none; border:none; cursor:pointer; padding:0;
+      font-family:'Inconsolata',monospace; font-size:.62rem;
+      letter-spacing:.08em; text-transform:uppercase;
     }
-    .confirm-delete .yes { color: var(--red); text-decoration: underline; }
-    .confirm-delete .no { color: var(--text-muted); }
+    .pi-confirm .cy { color:var(--red); text-decoration:underline; }
+    .pi-confirm .cn { color:var(--muted); }
 
-    /* Edit form overlay */
-    .edit-form {
-      display: none;
-      margin-top: 1rem;
-      padding: 1.5rem;
-      background: var(--bg-card);
-      border: 1px solid var(--border-light);
-      border-radius: 2px;
-    }
-    .edit-form.visible { display: block; }
-    .edit-form .group { margin-bottom: 1rem; }
-    .edit-form .btn-row {
-      display: flex;
-      gap: 0.75rem;
-      margin-top: 1.25rem;
-    }
+    .hidden { display:none !important; }
 
-    @media (max-width: 600px) {
-      header { padding: 1.25rem 1.5rem; }
-      main { padding-left: 1.5rem; padding-right: 1.5rem; }
+    /* ── EDIT OVERLAY — full screen bottom sheet ── */
+    #edit-overlay {
+      display:none; position:fixed; inset:0; z-index:900;
+      background:rgba(0,0,0,.65);
+      align-items:flex-end; justify-content:center;
+    }
+    #edit-overlay.open { display:flex; }
+    #edit-sheet {
+      background:#1c1a14;
+      border-top:1px solid var(--border);
+      border-radius:14px 14px 0 0;
+      padding:1.75rem 1.5rem 2.5rem;
+      width:100%; max-width:680px;
+      max-height:88vh; overflow-y:auto;
+      box-shadow:0 -8px 40px rgba(0,0,0,.8);
+      animation:sheetUp .25s ease;
+    }
+    @keyframes sheetUp {
+      from { transform:translateY(80px); opacity:0; }
+      to   { transform:translateY(0);    opacity:1; }
+    }
+    #edit-sheet .sec-title { margin-bottom:1.25rem; font-size:.85rem; }
+    #edit-sheet .group { margin-bottom:1rem; }
+    #edit-sheet input[type=text],
+    #edit-sheet input[type=date],
+    #edit-sheet select,
+    #edit-sheet textarea {
+      width:100%; background:var(--bg); border:1px solid var(--border);
+      color:var(--text); font-family:'Cormorant Garamond',serif;
+      font-size:1rem; font-weight:300; padding:.65rem .9rem;
+      border-radius:2px; outline:none; -webkit-appearance:none;
+    }
+    #edit-sheet textarea { resize:vertical; min-height:100px; line-height:1.7; }
+    .ef-row { display:flex; gap:.75rem; margin-top:1rem; }
+    .ef-save {
+      background:transparent; border:1px solid var(--gold2); color:var(--gold);
+      font-family:'Inconsolata',monospace; font-size:.65rem;
+      letter-spacing:.15em; text-transform:uppercase;
+      padding:.6rem 1.25rem; cursor:pointer; border-radius:2px; transition:all .2s;
+    }
+    .ef-save:hover { background:var(--gold2); color:var(--bg); }
+    .ef-cancel {
+      background:transparent; border:1px solid var(--border); color:var(--muted);
+      font-family:'Inconsolata',monospace; font-size:.65rem;
+      letter-spacing:.15em; text-transform:uppercase;
+      padding:.6rem .9rem; cursor:pointer; border-radius:2px;
+    }
+    .ef-msg {
+      margin-top:.75rem; font-family:'Inconsolata',monospace;
+      font-size:.65rem; letter-spacing:.08em; display:none;
+    }
+    .ef-msg.ok  { color:var(--gold); display:block; }
+    .ef-msg.err { color:var(--red);  display:block; }
+
+    @media (max-width:600px) {
+      header { padding:1.25rem 1.5rem; }
+      main { padding-left:1.5rem; padding-right:1.5rem; }
     }
   </style>
 </head>
 <body>
 
 <header>
-  <div class="site-title">Noctiluca</div>
+  <div class="logo">Noctiluca</div>
   <nav><a href="/">← Collection</a></nav>
 </header>
 
+<!-- Edit overlay -->
+<div id="edit-overlay">
+  <div id="edit-sheet">
+    <div id="edit-body"></div>
+  </div>
+</div>
+
 <main>
 
-  <!-- Auth screen -->
+  <!-- Auth -->
   <div id="auth-screen">
-    <p class="section-title">Enter passphrase</p>
+    <p class="sec-title">Enter passphrase</p>
     <div class="group">
       <input type="password" id="pw-input" placeholder="passphrase" autocomplete="current-password" />
-      <p class="hint hidden" id="pw-error" style="color:#c87070;">Incorrect passphrase.</p>
+      <p class="hint hidden" id="pw-err" style="color:#c87070">Incorrect passphrase.</p>
     </div>
     <button class="btn" onclick="checkAuth()">Enter</button>
   </div>
 
-  <!-- Main admin screen -->
+  <!-- Admin -->
   <div id="admin-screen" class="hidden">
 
-    <!-- New post form -->
-    <p class="section-title">New Entry</p>
-
-    <div class="notice success" id="create-success">✓ Published — your post is live.</div>
-    <div class="notice error"   id="create-error"></div>
+    <!-- New post -->
+    <p class="sec-title">New Entry</p>
+    <div class="notice ok"  id="create-ok">✓ Published — your post is live.</div>
+    <div class="notice err" id="create-err"></div>
 
     <div class="group">
       <label>Type</label>
@@ -337,7 +263,7 @@
       <textarea id="content-text" placeholder="A thought, fragment, observation..."></textarea>
 
       <div id="photo-upload" class="hidden">
-        <input type="file" id="photo-file" accept="image/*" class="hidden" onchange="handlePhoto(event,'new')" />
+        <input type="file" id="photo-file" accept="image/*" class="hidden" onchange="handlePhoto(event)" />
         <button type="button" class="photo-btn" onclick="document.getElementById('photo-file').click()">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
             <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
@@ -347,7 +273,7 @@
         </button>
         <div class="photo-preview" id="photo-preview">
           <img id="photo-preview-img" src="" alt="preview" />
-          <button class="remove-photo" onclick="removePhoto('new')">✕ Remove</button>
+          <button class="rm-photo" onclick="removePhoto()">✕ Remove</button>
         </div>
       </div>
 
@@ -355,12 +281,12 @@
       <p class="hint hidden" id="video-hint">Use the embed URL format: youtube.com/embed/VIDEO_ID</p>
     </div>
 
-    <div class="group hidden" id="attribution-group">
+    <div class="group hidden" id="attr-group">
       <label>Attribution</label>
       <input type="text" id="attribution" placeholder="Alan Watts, Gary Snyder..." />
     </div>
 
-    <div class="group hidden" id="caption-group">
+    <div class="group hidden" id="cap-group">
       <label>Caption (optional)</label>
       <input type="text" id="caption" placeholder="A brief note..." />
     </div>
@@ -372,410 +298,290 @@
 
     <button class="btn" id="submit-btn" onclick="submitPost()">Publish</button>
 
-    <!-- Existing posts -->
+    <!-- All posts -->
     <div class="divider"></div>
-    <p class="section-title">All Posts</p>
-    <div class="notice success" id="edit-success">✓ Updated.</div>
-    <div class="notice error"   id="edit-error"></div>
+    <p class="sec-title">All Posts</p>
+    <div class="notice ok"  id="list-ok">✓ Done.</div>
+    <div class="notice err" id="list-err"></div>
     <div class="post-list" id="post-list"></div>
 
   </div>
 </main>
 
 <script>
-  const PASSWORD = 'vega';
-  let allPosts = [];
-  let photoBase64 = null;
-  let editPhotoBase64 = {};
+var allPosts = [];
+var editIdx = null;
+var photoBase64 = null;
 
-  document.getElementById('date').value = new Date().toISOString().split('T')[0];
+document.getElementById('date').value = new Date().toISOString().split('T')[0];
 
-  if (sessionStorage.getItem('nc_auth') === '1') showAdmin();
+if (sessionStorage.getItem('nc_auth') === '1') showAdmin();
 
-  document.getElementById('pw-input').addEventListener('keydown', e => {
-    if (e.key === 'Enter') checkAuth();
+document.getElementById('pw-input').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') checkAuth();
+});
+
+function pw() { return sessionStorage.getItem('nc_pw'); }
+
+function checkAuth() {
+  var val = document.getElementById('pw-input').value;
+  if (!val) return;
+  sessionStorage.setItem('nc_pw', val);
+  sessionStorage.setItem('nc_auth', '1');
+  showAdmin();
+}
+
+async function showAdmin() {
+  document.getElementById('auth-screen').classList.add('hidden');
+  document.getElementById('admin-screen').classList.remove('hidden');
+  await loadList();
+}
+
+async function loadList() {
+  var list = document.getElementById('post-list');
+  list.innerHTML = '<p style="font-family:\'Inconsolata\',monospace;font-size:.7rem;color:var(--muted);letter-spacing:.1em;padding:.5rem 0">Loading...</p>';
+  try {
+    var r = await fetch('/posts.json?t='+Date.now());
+    allPosts = await r.json();
+    allPosts.sort(function(a,b){return new Date(b.date)-new Date(a.date);});
+    renderList();
+  } catch(e) {
+    list.innerHTML = '<p style="color:var(--red);font-family:\'Inconsolata\',monospace;font-size:.7rem;">Could not load posts.</p>';
+  }
+}
+
+function renderList() {
+  var list = document.getElementById('post-list');
+  if (!allPosts.length) {
+    list.innerHTML = '<p style="font-family:\'Inconsolata\',monospace;font-size:.7rem;color:var(--muted);padding:1rem 0;">No posts yet.</p>';
+    return;
+  }
+  list.innerHTML = allPosts.map(function(p, i) {
+    var preview = p.type==='image' ? '[image]' : (p.content||'').substring(0,60)+((p.content||'').length>60?'...':'');
+    var date = p.date ? new Date(p.date).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) : '';
+    return '<div class="post-item" id="pi-'+p.id+'">' +
+      '<div class="pi-info">' +
+        '<div class="pi-type">'+p.type+'</div>' +
+        '<div class="pi-preview">'+preview+'</div>' +
+        '<div class="pi-date">'+date+'</div>' +
+        '<div class="pi-confirm" id="pconf-'+p.id+'">Delete? ' +
+          '<button class="cy" onclick="doDelete(\''+p.id+'\')">Yes, delete</button> ' +
+          '<button class="cn" onclick="noConf(\''+p.id+'\')">Cancel</button>' +
+        '</div>' +
+      '</div>' +
+      '<div class="pi-actions">' +
+        '<button class="pi-edit" onclick="openEdit('+i+')">Edit</button>' +
+        '<button class="pi-del" onclick="askDel(\''+p.id+'\')">Delete</button>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+}
+
+function askDel(id) {
+  document.querySelectorAll('.pi-confirm').forEach(function(el){el.classList.remove('on');});
+  document.getElementById('pconf-'+id).classList.add('on');
+}
+function noConf(id) {
+  document.getElementById('pconf-'+id).classList.remove('on');
+}
+async function doDelete(id) {
+  var r = await fetch('/api/post',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'delete',id:id,password:pw()})});
+  if (r.ok) {
+    document.getElementById('pi-'+id).remove();
+    allPosts = allPosts.filter(function(p){return p.id!==id;});
+    showNotice('list-ok','✓ Deleted.');
+  } else {
+    showNotice('list-err','Could not delete. Try again.');
+  }
+}
+
+/* ── Edit overlay ── */
+function openEdit(i) {
+  editIdx = i;
+  var p = allPosts[i];
+  var isText = p.type==='thought'||p.type==='quote';
+  document.getElementById('edit-body').innerHTML =
+    '<p class="sec-title">Edit Entry</p>'+
+    '<div class="group"><label>Type</label>'+
+    '<select id="ef-type" onchange="efFields()">'+
+      '<option value="thought"'+(p.type==='thought'?' selected':'')+'>Thought</option>'+
+      '<option value="quote"'+(p.type==='quote'?' selected':'')+'>Quote</option>'+
+      '<option value="image"'+(p.type==='image'?' selected':'')+'>Image</option>'+
+      '<option value="video"'+(p.type==='video'?' selected':'')+'>Video</option>'+
+    '</select></div>'+
+    '<div class="group"><label id="ef-cl">Content</label>'+
+    '<textarea id="ef-text"'+(isText?'':' style="display:none"')+'>'+( isText?p.content:'' )+'</textarea>'+
+    '<input type="text" id="ef-url" value="'+(isText?'':p.content)+'"'+(isText?' style="display:none"':'')+' placeholder="URL..." /></div>'+
+    '<div class="group" id="ef-ag"'+(p.type==='quote'?'':' style="display:none"')+'><label>Attribution</label>'+
+    '<input type="text" id="ef-attr" value="'+(p.attribution||'')+'" placeholder="Alan Watts..." /></div>'+
+    '<div class="group" id="ef-cg"'+((p.type==='image'||p.type==='video')?'':' style="display:none"')+'><label>Caption</label>'+
+    '<input type="text" id="ef-cap" value="'+(p.caption||'')+'" placeholder="Optional..." /></div>'+
+    '<div class="group"><label>Date</label><input type="date" id="ef-date" value="'+(p.date||'')+'" /></div>'+
+    '<div class="ef-row"><button class="ef-save" onclick="saveEdit()">Save</button><button class="ef-cancel" onclick="closeEdit()">Cancel</button></div>'+
+    '<div class="ef-msg" id="ef-msg"></div>';
+  document.getElementById('edit-overlay').classList.add('open');
+}
+
+function efFields() {
+  var t = document.getElementById('ef-type').value;
+  document.getElementById('ef-text').style.display = (t==='thought'||t==='quote')?'':'none';
+  document.getElementById('ef-url').style.display  = (t==='image'||t==='video')?'':'none';
+  document.getElementById('ef-ag').style.display   = t==='quote'?'':'none';
+  document.getElementById('ef-cg').style.display   = (t==='image'||t==='video')?'':'none';
+  document.getElementById('ef-cl').textContent = {thought:'Thought',quote:'Quote text',image:'Image URL',video:'YouTube embed URL'}[t];
+}
+
+function closeEdit() {
+  document.getElementById('edit-overlay').classList.remove('open');
+  editIdx = null;
+}
+
+document.getElementById('edit-overlay').addEventListener('click', function(e) {
+  if (e.target === this) closeEdit();
+});
+
+async function saveEdit() {
+  if (editIdx === null) return;
+  var p = allPosts[editIdx];
+  var t = document.getElementById('ef-type').value;
+  var isText = t==='thought'||t==='quote';
+  var content = isText ? document.getElementById('ef-text').value.trim() : document.getElementById('ef-url').value.trim();
+  var msg = document.getElementById('ef-msg');
+  msg.className = 'ef-msg';
+
+  var r = await fetch('/api/post',{
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({
+      action:'edit', id:p.id, type:t, content:content,
+      date: document.getElementById('ef-date').value,
+      attribution: (document.getElementById('ef-attr')||{value:''}).value.trim(),
+      caption:     (document.getElementById('ef-cap') ||{value:''}).value.trim(),
+      password: pw()
+    })
   });
 
-  function checkAuth() {
-    const val = document.getElementById('pw-input').value;
-    if (!val) return;
-    sessionStorage.setItem('nc_pw', val);
-    // Optimistically show admin; server will 401 if wrong on first action
-    sessionStorage.setItem('nc_auth', '1');
-    showAdmin();
+  if (r.ok) {
+    msg.textContent='✓ Saved — reloading...';
+    msg.className='ef-msg ok';
+    setTimeout(function(){ closeEdit(); loadList(); }, 1500);
+  } else if (r.status===401) {
+    msg.textContent='Session expired — re-enter passphrase.';
+    msg.className='ef-msg err';
+  } else {
+    msg.textContent='Could not save. Try again.';
+    msg.className='ef-msg err';
   }
+}
 
-  async function showAdmin() {
-    document.getElementById('auth-screen').classList.add('hidden');
-    document.getElementById('admin-screen').classList.remove('hidden');
-    await loadPostList();
-  }
+/* ── New post ── */
+function updateFields() {
+  var type = document.getElementById('type').value;
+  var label = document.getElementById('content-label');
+  var ta = document.getElementById('content-text');
+  var pu = document.getElementById('photo-upload');
+  var ui = document.getElementById('content-url');
+  var vh = document.getElementById('video-hint');
+  var ag = document.getElementById('attr-group');
+  var cg = document.getElementById('cap-group');
 
-  async function loadPostList() {
-    const list = document.getElementById('post-list');
-    list.innerHTML = '<p style="font-family:\'Inconsolata\',monospace;font-size:0.7rem;color:var(--text-muted);letter-spacing:0.1em;">Loading...</p>';
-    try {
-      const res = await fetch('/posts.json?t=' + Date.now());
-      allPosts = await res.json();
-      allPosts.sort((a,b) => new Date(b.date) - new Date(a.date));
-      renderPostList();
-    } catch(e) {
-      list.innerHTML = '<p style="color:var(--red);font-family:\'Inconsolata\',monospace;font-size:0.7rem;">Could not load posts.</p>';
-    }
-  }
+  ta.classList.add('hidden'); pu.classList.add('hidden');
+  ui.classList.add('hidden'); vh.classList.add('hidden');
+  ag.classList.add('hidden'); cg.classList.add('hidden');
 
-  function renderPostList() {
-    const list = document.getElementById('post-list');
-    if (!allPosts.length) {
-      list.innerHTML = '<p style="font-family:\'Inconsolata\',monospace;font-size:0.7rem;color:var(--text-muted);letter-spacing:0.1em;padding:1rem 0;">No posts yet.</p>';
-      return;
-    }
-    list.innerHTML = allPosts.map(post => {
-      const preview = post.type === 'image'
-        ? '[image]'
-        : (post.content || '').substring(0, 60) + ((post.content||'').length > 60 ? '...' : '');
-      const date = post.date
-        ? new Date(post.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
-        : '';
+  if (type==='thought') { label.textContent='Thought'; ta.placeholder='A thought, fragment, observation...'; ta.classList.remove('hidden'); }
+  else if (type==='quote') { label.textContent='Quote'; ta.placeholder='The quote text...'; ta.classList.remove('hidden'); ag.classList.remove('hidden'); }
+  else if (type==='image') { label.textContent='Photo'; pu.classList.remove('hidden'); cg.classList.remove('hidden'); }
+  else if (type==='video') { label.textContent='YouTube embed URL'; ui.classList.remove('hidden'); vh.classList.remove('hidden'); cg.classList.remove('hidden'); }
+}
 
-      return `
-        <div class="post-item" id="item-${post.id}">
-          <div class="post-item-info">
-            <div class="post-item-type">${post.type}</div>
-            <div class="post-item-preview">${preview}</div>
-            <div class="post-item-date">${date}</div>
-            <div class="confirm-delete" id="confirm-${post.id}">
-              Delete this post?
-              <button class="yes" onclick="deletePost('${post.id}')">Yes, delete</button>
-              <button class="no" onclick="cancelDelete('${post.id}')">Cancel</button>
-            </div>
-            <div class="edit-form" id="edit-${post.id}">
-              ${buildEditForm(post)}
-            </div>
-          </div>
-          <div class="post-item-actions">
-            <button class="btn-ghost" onclick="toggleEdit('${post.id}')">Edit</button>
-            <button class="btn-danger" onclick="confirmDelete('${post.id}')">Delete</button>
-          </div>
-        </div>`;
-    }).join('');
-  }
-
-  function buildEditForm(post) {
-    const isTextType = post.type === 'thought' || post.type === 'quote';
-    return `
-      <div class="group">
-        <label>Type</label>
-        <select id="edit-type-${post.id}" onchange="updateEditFields('${post.id}')">
-          <option value="thought" ${post.type==='thought'?'selected':''}>Thought</option>
-          <option value="quote"   ${post.type==='quote'  ?'selected':''}>Quote</option>
-          <option value="image"   ${post.type==='image'  ?'selected':''}>Image</option>
-          <option value="video"   ${post.type==='video'  ?'selected':''}>Video</option>
-        </select>
-      </div>
-      <div class="group">
-        <label id="edit-content-label-${post.id}">Content</label>
-        <textarea id="edit-content-text-${post.id}" ${!isTextType?'style="display:none"':''}>${isTextType ? post.content : ''}</textarea>
-        <div id="edit-photo-upload-${post.id}" ${post.type!=='image'?'style="display:none"':''}>
-          ${post.type==='image' ? `<img src="${post.content}" style="width:100%;max-height:200px;object-fit:cover;border-radius:2px;margin-bottom:0.5rem;" />` : ''}
-          <input type="file" id="edit-photo-file-${post.id}" accept="image/*" class="hidden" onchange="handlePhoto(event,'edit-${post.id}')" />
-          <button type="button" class="photo-btn" onclick="document.getElementById('edit-photo-file-${post.id}').click()" style="margin-top:0.5rem;">
-            Replace photo
-          </button>
-          <div class="photo-preview" id="edit-photo-preview-${post.id}">
-            <img id="edit-photo-preview-img-${post.id}" src="" alt="preview" />
-            <button class="remove-photo" onclick="removePhoto('edit-${post.id}')">✕ Remove new photo</button>
-          </div>
-        </div>
-        <input type="text" id="edit-content-url-${post.id}" value="${!isTextType && post.type!=='image' ? post.content : ''}" ${post.type!=='video'?'style="display:none"':''} placeholder="https://www.youtube.com/embed/..." />
-      </div>
-      <div class="group" id="edit-attr-group-${post.id}" ${post.type!=='quote'?'style="display:none"':''}>
-        <label>Attribution</label>
-        <input type="text" id="edit-attribution-${post.id}" value="${post.attribution||''}" placeholder="Alan Watts..." />
-      </div>
-      <div class="group" id="edit-cap-group-${post.id}" ${(post.type!=='image'&&post.type!=='video')?'style="display:none"':''}>
-        <label>Caption (optional)</label>
-        <input type="text" id="edit-caption-${post.id}" value="${post.caption||''}" placeholder="A brief note..." />
-      </div>
-      <div class="group">
-        <label>Date</label>
-        <input type="date" id="edit-date-${post.id}" value="${post.date||''}" />
-      </div>
-      <div class="btn-row">
-        <button class="btn" onclick="saveEdit('${post.id}')">Save</button>
-        <button class="btn-ghost" onclick="toggleEdit('${post.id}')">Cancel</button>
-      </div>`;
-  }
-
-  function updateEditFields(id) {
-    const type = document.getElementById(`edit-type-${id}`).value;
-    const textArea = document.getElementById(`edit-content-text-${id}`);
-    const photoDiv = document.getElementById(`edit-photo-upload-${id}`);
-    const urlInput = document.getElementById(`edit-content-url-${id}`);
-    const attrGroup = document.getElementById(`edit-attr-group-${id}`);
-    const capGroup = document.getElementById(`edit-cap-group-${id}`);
-
-    textArea.style.display = 'none';
-    photoDiv.style.display = 'none';
-    urlInput.style.display = 'none';
-    attrGroup.style.display = 'none';
-    capGroup.style.display = 'none';
-
-    if (type === 'thought') { textArea.style.display = ''; }
-    else if (type === 'quote') { textArea.style.display = ''; attrGroup.style.display = ''; }
-    else if (type === 'image') { photoDiv.style.display = ''; capGroup.style.display = ''; }
-    else if (type === 'video') { urlInput.style.display = ''; capGroup.style.display = ''; }
-  }
-
-  function toggleEdit(id) {
-    const form = document.getElementById(`edit-${id}`);
-    form.classList.toggle('visible');
-  }
-
-  function confirmDelete(id) {
-    document.querySelectorAll('.confirm-delete').forEach(el => el.classList.remove('visible'));
-    document.getElementById(`confirm-${id}`).classList.add('visible');
-  }
-
-  function cancelDelete(id) {
-    document.getElementById(`confirm-${id}`).classList.remove('visible');
-  }
-
-  // New post fields
-  function updateFields() {
-    const type = document.getElementById('type').value;
-    const label = document.getElementById('content-label');
-    const textarea = document.getElementById('content-text');
-    const photoUpload = document.getElementById('photo-upload');
-    const urlInput = document.getElementById('content-url');
-    const videoHint = document.getElementById('video-hint');
-    const attrGroup = document.getElementById('attribution-group');
-    const capGroup = document.getElementById('caption-group');
-
-    textarea.classList.add('hidden');
-    photoUpload.classList.add('hidden');
-    urlInput.classList.add('hidden');
-    videoHint.classList.add('hidden');
-    attrGroup.classList.add('hidden');
-    capGroup.classList.add('hidden');
-
-    if (type === 'thought') {
-      label.textContent = 'Thought';
-      textarea.placeholder = 'A thought, fragment, observation...';
-      textarea.classList.remove('hidden');
-    } else if (type === 'quote') {
-      label.textContent = 'Quote';
-      textarea.placeholder = 'The quote text...';
-      textarea.classList.remove('hidden');
-      attrGroup.classList.remove('hidden');
-    } else if (type === 'image') {
-      label.textContent = 'Photo';
-      photoUpload.classList.remove('hidden');
-      capGroup.classList.remove('hidden');
-    } else if (type === 'video') {
-      label.textContent = 'YouTube embed URL';
-      urlInput.classList.remove('hidden');
-      videoHint.classList.remove('hidden');
-      capGroup.classList.remove('hidden');
-    }
-  }
-
-  function handlePhoto(event, context) {
-    const file = event.target.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = e => {
-      const img = new Image();
-      img.onload = () => {
-        // Compress: resize to max 1600px, convert to JPEG 82%
-        const MAX = 1600;
-        let w = img.width, h = img.height;
-        if (w > MAX || h > MAX) {
-          if (w > h) { h = Math.round(h * MAX / w); w = MAX; }
-          else       { w = Math.round(w * MAX / h); h = MAX; }
-        }
-        const canvas = document.createElement('canvas');
-        canvas.width = w; canvas.height = h;
-        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-        const compressed = canvas.toDataURL('image/jpeg', 0.82);
-
-        if (context === 'new') {
-          photoBase64 = compressed;
-          document.getElementById('photo-preview-img').src = compressed;
-          document.getElementById('photo-preview').style.display = 'block';
-        } else {
-          const id = context.replace('edit-', '');
-          editPhotoBase64[id] = compressed;
-          document.getElementById(`edit-photo-preview-img-${id}`).src = compressed;
-          document.getElementById(`edit-photo-preview-${id}`).style.display = 'block';
-        }
-      };
-      img.src = e.target.result;
+function handlePhoto(event) {
+  var file = event.target.files[0];
+  if (!file) return;
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    var img = new Image();
+    img.onload = function() {
+      var MAX=1600, w=img.width, h=img.height;
+      if (w>MAX||h>MAX) { if(w>h){h=Math.round(h*MAX/w);w=MAX;}else{w=Math.round(w*MAX/h);h=MAX;} }
+      var c=document.createElement('canvas'); c.width=w; c.height=h;
+      c.getContext('2d').drawImage(img,0,0,w,h);
+      photoBase64 = c.toDataURL('image/jpeg',0.82);
+      document.getElementById('photo-preview-img').src = photoBase64;
+      document.getElementById('photo-preview').style.display = 'block';
     };
-    reader.readAsDataURL(file);
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+function removePhoto() {
+  photoBase64 = null;
+  document.getElementById('photo-file').value='';
+  document.getElementById('photo-preview').style.display='none';
+}
+
+async function uploadToCloudinary(base64) {
+  var r = await fetch('/api/post',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'cloudinary_config',password:pw()})});
+  var cfg = await r.json();
+  var fd = new FormData();
+  fd.append('file', base64);
+  fd.append('upload_preset', cfg.uploadPreset);
+  var cr = await fetch('https://api.cloudinary.com/v1_1/'+cfg.cloudName+'/image/upload',{method:'POST',body:fd});
+  var cd = await cr.json();
+  if (!cd.secure_url) throw new Error('Upload failed');
+  return cd.secure_url;
+}
+
+function showNotice(id, msg) {
+  var el = document.getElementById(id);
+  if (msg) el.textContent = msg;
+  el.style.display = 'block';
+  setTimeout(function(){ el.style.display='none'; }, 4000);
+}
+
+async function submitPost() {
+  var type = document.getElementById('type').value;
+  var btn = document.getElementById('submit-btn');
+  var content = '';
+
+  if (type==='thought'||type==='quote') {
+    content = document.getElementById('content-text').value.trim();
+    if (!content) { showNotice('create-err','Please enter content.'); return; }
+  } else if (type==='image') {
+    if (!photoBase64) { showNotice('create-err','Please choose a photo.'); return; }
+  } else if (type==='video') {
+    content = document.getElementById('content-url').value.trim();
+    if (!content) { showNotice('create-err','Please enter a video URL.'); return; }
   }
 
-  function removePhoto(context) {
-    if (context === 'new') {
-      photoBase64 = null;
-      document.getElementById('photo-file').value = '';
-      document.getElementById('photo-preview').style.display = 'none';
-    } else {
-      const id = context.replace('edit-', '');
-      editPhotoBase64[id] = null;
-      document.getElementById(`edit-photo-file-${id}`).value = '';
-      document.getElementById(`edit-photo-preview-${id}`).style.display = 'none';
-    }
-  }
+  btn.disabled=true; btn.textContent=type==='image'?'Uploading...':'Publishing...';
 
-  function showNotice(id, type, msg) {
-    const el = document.getElementById(id);
-    el.textContent = msg || el.textContent;
-    el.className = `notice ${type}`;
-    el.style.display = 'block';
-    setTimeout(() => { el.style.display = 'none'; }, 4000);
-  }
-
-  async function api(payload) {
-    payload.password = sessionStorage.getItem('nc_pw');
-    const res = await fetch('/api/post', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    });
-    if (res.status === 401) {
-      sessionStorage.removeItem('nc_auth');
-      sessionStorage.removeItem('nc_pw');
-      location.reload();
-    }
-    return res;
-  }
-
-  async function uploadToCloudinary(base64Data) {
-    // Upload directly from browser to Cloudinary — bypasses Vercel payload limits
-    const res = await fetch('/api/post', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ action: 'cloudinary_config', password: sessionStorage.getItem('nc_pw') }),
-    });
-    const { cloudName, uploadPreset } = await res.json();
-
-    const formData = new FormData();
-    formData.append('file', base64Data);
-    formData.append('upload_preset', uploadPreset);
-
-    const cloudRes = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
-      method: 'POST',
-      body: formData,
-    });
-    const data = await cloudRes.json();
-    if (!data.secure_url) throw new Error('Cloudinary upload failed');
-    return data.secure_url;
-  }
-
-  async function submitPost() {
-    const type = document.getElementById('type').value;
-    const btn = document.getElementById('submit-btn');
-
-    let content = '';
-
-    if (type === 'thought' || type === 'quote') {
-      content = document.getElementById('content-text').value.trim();
-      if (!content) { showNotice('create-error', 'error', 'Please enter content.'); return; }
-    } else if (type === 'image') {
-      if (!photoBase64) { showNotice('create-error', 'error', 'Please choose a photo.'); return; }
-    } else if (type === 'video') {
-      content = document.getElementById('content-url').value.trim();
-      if (!content) { showNotice('create-error', 'error', 'Please enter a video URL.'); return; }
-    }
-
-    btn.disabled = true;
-    btn.textContent = type === 'image' ? 'Uploading photo...' : 'Publishing...';
-
-    try {
-      if (type === 'image') {
-        content = await uploadToCloudinary(photoBase64);
-        btn.textContent = 'Saving...';
-      }
-
-      const payload = {
-        action: 'create', type, content,
+  try {
+    if (type==='image') { content = await uploadToCloudinary(photoBase64); btn.textContent='Saving...'; }
+    var r = await fetch('/api/post',{
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        action:'create', type, content, password:pw(),
         date: document.getElementById('date').value,
         attribution: document.getElementById('attribution').value.trim(),
-        caption: document.getElementById('caption').value.trim(),
-      };
+        caption: document.getElementById('caption').value.trim()
+      })
+    });
+    if (r.ok) {
+      showNotice('create-ok','✓ Published — your post is live.');
+      document.getElementById('content-text').value='';
+      document.getElementById('content-url').value='';
+      document.getElementById('attribution').value='';
+      document.getElementById('caption').value='';
+      document.getElementById('date').value=new Date().toISOString().split('T')[0];
+      document.getElementById('type').value='thought';
+      updateFields(); removePhoto();
+      setTimeout(loadList, 3000);
+    } else { showNotice('create-err','Something went wrong. Try again.'); }
+  } catch(e) { showNotice('create-err','Upload failed. Check connection and try again.'); }
 
-      const res = await api(payload);
-      if (res.ok) {
-        showNotice('create-success', 'success', '✓ Published — your post is live.');
-        document.getElementById('content-text').value = '';
-        document.getElementById('content-url').value = '';
-        document.getElementById('attribution').value = '';
-        document.getElementById('caption').value = '';
-        document.getElementById('date').value = new Date().toISOString().split('T')[0];
-        document.getElementById('type').value = 'thought';
-        updateFields();
-        removePhoto('new');
-        setTimeout(loadPostList, 3000);
-      } else {
-        showNotice('create-error', 'error', 'Something went wrong. Please try again.');
-      }
-    } catch(e) {
-      showNotice('create-error', 'error', 'Upload failed. Check your connection and try again.');
-    }
-
-    btn.disabled = false;
-    btn.textContent = 'Publish';
-  }
-
-  async function saveEdit(id) {
-    const type = document.getElementById(`edit-type-${id}`).value;
-    const isText = type === 'thought' || type === 'quote';
-    let content = '';
-    let imageData = null;
-
-    if (isText) {
-      content = document.getElementById(`edit-content-text-${id}`).value.trim();
-    } else if (type === 'image') {
-      // Keep existing image unless new one chosen
-      if (editPhotoBase64[id]) {
-        imageData = editPhotoBase64[id];
-      } else {
-        const existing = allPosts.find(p => p.id === id);
-        content = existing ? existing.content : '';
-      }
-    } else {
-      content = document.getElementById(`edit-content-url-${id}`).value.trim();
-    }
-
-    const payload = {
-      action: 'edit', id, type, content,
-      date: document.getElementById(`edit-date-${id}`).value,
-      attribution: document.getElementById(`edit-attribution-${id}`)?.value?.trim() || '',
-      caption: document.getElementById(`edit-caption-${id}`)?.value?.trim() || '',
-    };
-    if (imageData) { payload.imageData = imageData; payload.imageType = 'image'; }
-
-    const res = await api(payload);
-    if (res.ok) {
-      showNotice('edit-success', 'success', '✓ Updated.');
-      toggleEdit(id);
-      setTimeout(loadPostList, 3000);
-    } else {
-      showNotice('edit-error', 'error', 'Could not save. Try again.');
-    }
-  }
-
-  async function deletePost(id) {
-    const res = await api({ action: 'delete', id });
-    if (res.ok) {
-      document.getElementById(`item-${id}`).remove();
-      allPosts = allPosts.filter(p => p.id !== id);
-      showNotice('edit-success', 'success', '✓ Deleted.');
-    } else {
-      showNotice('edit-error', 'error', 'Could not delete. Try again.');
-    }
-  }
+  btn.disabled=false; btn.textContent='Publish';
+}
 </script>
 </body>
 </html>
