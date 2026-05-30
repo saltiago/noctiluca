@@ -322,16 +322,16 @@ async function load() {
 
 function renderGrid() {
   document.getElementById('grid').innerHTML = posts.map(function(p,i) {
-    if (p.type==='image') return '<div class="card" onclick="open('+i+')"><img src="'+p.content+'" loading="lazy" />'+(p.caption?'<p class="cap">'+p.caption+'</p>':'')+'</div>';
-    if (p.type==='quote') return '<div class="card card-q" onclick="open('+i+')"><blockquote>'+p.content+'</blockquote>'+(p.attribution?'<cite>— '+p.attribution+'</cite>':'')+'</div>';
-    if (p.type==='thought') return '<div class="card card-t" onclick="open('+i+')"><p>'+p.content+'</p></div>';
-    if (p.type==='video') return '<div class="card card-v" onclick="open('+i+')"><div class="thumb"><div class="play"><svg width="14" height="14" viewBox="0 0 24 24" fill="var(--gold)"><polygon points="5,3 19,12 5,21"/></svg></div></div>'+(p.caption?'<p class="cap">'+p.caption+'</p>':'')+'</div>';
+    if (p.type==='image') return '<div class="card" onclick="openLb('+i+')"><img src="'+p.content+'" loading="lazy" />'+(p.caption?'<p class="cap">'+p.caption+'</p>':'')+'</div>';
+    if (p.type==='quote') return '<div class="card card-q" onclick="openLb('+i+')"><blockquote>'+p.content+'</blockquote>'+(p.attribution?'<cite>— '+p.attribution+'</cite>':'')+'</div>';
+    if (p.type==='thought') return '<div class="card card-t" onclick="openLb('+i+')"><p>'+p.content+'</p></div>';
+    if (p.type==='video') return '<div class="card card-v" onclick="openLb('+i+')"><div class="thumb"><div class="play"><svg width="14" height="14" viewBox="0 0 24 24" fill="var(--gold)"><polygon points="5,3 19,12 5,21"/></svg></div></div>'+(p.caption?'<p class="cap">'+p.caption+'</p>':'')+'</div>';
     return '';
   }).join('');
 }
 
 /* ── Lightbox ── */
-function open(i) {
+function openLb(i) {
   cur = i;
   renderFeed();
   document.getElementById('lb').classList.add('open');
